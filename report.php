@@ -10,8 +10,8 @@
   
 </head>
 <body>
-  <aside>
-    <img src="Red Cross.jpg" alt="Red Cross Logo">
+<aside id= "sidebar">
+      <img src="Red Cross.jpg" alt="Red Cross Logo">
     <nav>
       <a href="index.php">Dashboard</a>
       <a href="event.php">Events</a>
@@ -25,6 +25,7 @@
 
   <section class="content-wrapper">
   <header style="display: flex; justify-content: flex-end; align-items: center; padding: 10px;">
+  <button class="hamburger" id="toggleSidebar"><i class="bi bi-list"></i></button>
   <a href="logout.php" class="text-white text-decoration-none fw-bold" style="color: red;">
     <i class="bi bi-box-arrow-left" style="font-size: 1.5rem;"></i> 
   </a>
@@ -377,6 +378,11 @@
         patientListContainer.appendChild(statsDiv);
       }
     }
+  </script>
+  <script>
+    document.getElementById('toggleSidebar').addEventListener('click', function () {
+      document.getElementById('sidebar').classList.toggle('active');
+    });
   </script>
 </body>
 </html>

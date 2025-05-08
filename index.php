@@ -18,7 +18,7 @@ if (!isset($_SESSION['username'])) {
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <aside>
+  <aside id= "sidebar">
     <img src="Red Cross.jpg" alt="Red Cross Logo">
     <nav>
       <a href="index.php" class="active">Dashboard</a>
@@ -33,9 +33,11 @@ if (!isset($_SESSION['username'])) {
 
   <section class="content-wrapper">
   <header style="display: flex; justify-content: flex-end; align-items: center; padding: 10px;">
+  <button class="hamburger" id="toggleSidebar"><i class="bi bi-list"></i></button>
   <a href="logout.php" class="text-white text-decoration-none fw-bold" style="color: red;">
     <i class="bi bi-box-arrow-left" style="font-size: 1.5rem;"></i> 
   </a>
+  
 </header>
 
     
@@ -163,5 +165,10 @@ if (!isset($_SESSION['username'])) {
  
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.getElementById('toggleSidebar').addEventListener('click', function () {
+      document.getElementById('sidebar').classList.toggle('active');
+    });
+  </script>
 </body>
 </html>
