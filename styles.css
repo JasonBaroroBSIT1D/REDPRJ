@@ -30,6 +30,8 @@
       flex-direction: column;
       transition: all 0.3s;
       box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+      overflow-y: auto; /* ADD THIS LINE */
+      scrollbar-width: thin; /* Optional for Firefox */
     }
     
     #sidebar img.logo {

@@ -17,7 +17,7 @@
     </div>
     
     <nav>
-      <a href="index.php" class="active">
+      <a href="index.php" >
         <i class="bi bi-grid-1x2-fill"></i> Dashboard
       </a>
       <a href="event.php">
