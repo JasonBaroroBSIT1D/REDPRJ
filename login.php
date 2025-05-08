@@ -1,44 +1,73 @@
 <?php
+// Start session
 session_start();
 
-// Better security practices
-$valid_username = "admin";
-// In production, use a properly hashed password instead of plaintext
-$valid_password_hash = password_hash("password123", PASSWORD_DEFAULT);
+// Database connection
+$host = "127.0.0.1";  // Based on the screenshot
+$dbname = "red_cross_council";
+$username = "root";  // Default username, update if different
+$password = "";  // Default password, update if different
+
+// Initialize variables
 $error = "";
 $success = "";
 
-// CSRF protection
+// Generate CSRF token if not already set
 if (!isset($_SESSION['csrf_token'])) {
     $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Validate CSRF token
-    if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
-        $error = "Invalid request. Please try again.";
-    } else {
-        $username = filter_input(INPUT_POST, "username", FILTER_SANITIZE_STRING) ?? "";
-        $password = $_POST["password"] ?? "";
-        
-        if ($username === $valid_username && password_verify($password, $valid_password_hash)) {
-            $_SESSION["username"] = $username;
-            $_SESSION["login_time"] = time();
-            
-            // Prevent session fixation
-            session_regenerate_id(true);
-            
-            header("Location: index.php");
-            exit();
+try {
+    $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    
+    // Process login form submission
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        // Verify CSRF token
+        if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
+            $error = "Invalid form submission. Please try again.";
         } else {
-            // Use generic error message for security
-            $error = "Invalid credentials. Please try again.";
+            $username = trim($_POST['username']);
+            $password = $_POST['password'];
             
-            // Add a slight delay to prevent timing attacks
-            usleep(rand(100000, 500000));
+            if (empty($username) || empty($password)) {
+                $error = "Please enter both username and password.";
+            } else {
+                // Query the database for the user
+                $stmt = $conn->prepare("SELECT * FROM officers WHERE username = :username LIMIT 1");
+                $stmt->bindParam(':username', $username);
+                $stmt->execute();
+                
+                $user = $stmt->fetch(PDO::FETCH_ASSOC);
+                
+                if ($user) {
+                    // Verify password
+                    // NOTE: In this example, we're checking the raw password since that's what appears to be in your database
+                    // In a production environment, you should use password_hash() and password_verify()
+                    if ($password === $user['password']) {
+                        // Authentication successful
+                        $_SESSION['user_id'] = $user['id'];
+                        $_SESSION['username'] = $user['username'];
+                        $_SESSION['name'] = $user['name'];
+                        $_SESSION['role'] = $user['role'];
+                        
+                        // Redirect to dashboard or intended page
+                        header("Location: index.php");
+                        exit;
+                    } else {
+                        $error = "Invalid username or password";
+                    }
+                } else {
+                    $error = "Invalid username or password";
+                }
+            }
         }
     }
+} catch (PDOException $e) {
+    $error = "Connection failed: " . $e->getMessage();
 }
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

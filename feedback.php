@@ -50,12 +50,31 @@
     </div>
   </aside>
   <section class="content-wrapper">
-  <header style="display: flex; justify-content: flex-end; align-items: center; padding: 10px;">
-  <button class="hamburger" id="toggleSidebar"><i class="bi bi-list"></i></button>
-  <a href="logout.php" class="text-white text-decoration-none fw-bold" style="color: red;">
-    <i class="bi bi-box-arrow-left" style="font-size: 1.5rem;"></i> 
-  </a>
-</header>
+  <header>
+      <button class="hamburger" id="toggleSidebar">
+        <i class="bi bi-list"></i>
+      </button>
+      <h2>Admin Feedback</h2>
+      <div class="dropdown">
+        <button class="btn btn-light dropdown-toggle d-flex align-items-center" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+          <img src="Red Cross.jpg" alt="Avatar" class="rounded-circle me-2" style="width:32px; height:32px;">
+          <span class="fw-bold">Administrator</span>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+          <li>
+            <a class="dropdown-item" href="profile.php">
+              <i class="bi bi-person me-2"></i> Profile
+            </a>
+          </li>
+          <li><hr class="dropdown-divider"></li>
+          <li>
+            <a class="dropdown-item" href="logout.php">
+              <i class="bi bi-box-arrow-right me-2"></i> Log Out
+            </a>
+          </li>
+        </ul>
+      </div>
+    </header>
     
     <main>
       <section class="welcome-banner">

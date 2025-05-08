@@ -1,8 +1,10 @@
 <?php
 session_start();
+// Check if user is logged in by verifying session username exists
+// If not logged in, redirect to login page
 if (!isset($_SESSION['username'])) {
-    header("Location: login.php");
-    exit();
+    header("Location: login.php"); // Redirect to login page
+    exit(); // Stop executing rest of the page
 }
 ?>
 
@@ -50,10 +52,10 @@ if (!isset($_SESSION['username'])) {
     </nav>
     
     <div class="user-profile">
-      <img src="/api/placeholder/60/60" alt="Admin User" class="user-avatar">
+      <img src="Red Cross.jpg" alt="Admin User" class="user-avatar">
       <h4>Admin User</h4>
       <p>Administrator</p>
-      <a href="#" class="logout-btn">
+      <a href="logout.php" class="logout-btn">
         <i class="bi bi-box-arrow-right"></i> Log Out
       </a>
     </div>
@@ -64,10 +66,26 @@ if (!isset($_SESSION['username'])) {
       <button class="hamburger" id="toggleSidebar">
         <i class="bi bi-list"></i>
       </button>
-      <h2>Red Cross Council Dashboard</h2>
-      <a href="logout.php" class="text-white text-decoration-none fw-bold">
-        <i class="bi bi-box-arrow-left" style="font-size: 1.5rem;"></i> 
-      </a>
+      <h2>Admin Dashboard</h2>
+      <div class="dropdown">
+        <button class="btn btn-light dropdown-toggle d-flex align-items-center" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+          <img src="Red Cross.jpg" alt="Avatar" class="rounded-circle me-2" style="width:32px; height:32px;">
+          <span class="fw-bold">Administrator</span>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+          <li>
+            <a class="dropdown-item" href="profile.php">
+              <i class="bi bi-person me-2"></i> Profile
+            </a>
+          </li>
+          <li><hr class="dropdown-divider"></li>
+          <li>
+            <a class="dropdown-item" href="logout.php">
+              <i class="bi bi-box-arrow-right me-2"></i> Log Out
+            </a>
+          </li>
+        </ul>
+      </div>
     </header>
 
     <main>
