@@ -9,17 +9,45 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<aside id= "sidebar">
-    <img src="Red Cross.jpg" alt="Red Cross Logo">
+<aside id="sidebar">
+    <div class="sidebar-header">
+      <img src="Red Cross.jpg" alt="Red Cross Logo" class="logo">
+      <h3>RED CROSS</h3>
+      <p>USTP Council</p>
+    </div>
+    
     <nav>
-      <a href="index.php">Dashboard</a>
-      <a href="event.php" class="active">Events</a>
-      <a href="annoucement.php">Announcement</a>
-      <a href="records.php">Records</a>
-      <a href="member.php">Members</a>
-      <a href="report.php" >Reports</a>
-      <a href="feedback.php">View Feedbacks</a>
+      <a href="index.php">
+        <i class="bi bi-grid-1x2-fill"></i> Dashboard
+      </a>
+      <a href="event.php"  class="active">
+        <i class="bi bi-calendar-event-fill"></i> Events
+      </a>
+      <a href="annoucement.php">
+        <i class="bi bi-megaphone-fill"></i> Announcement
+      </a>
+      <a href="records.php">
+        <i class="bi bi-card-checklist"></i> Records
+      </a>
+      <a href="member.php">
+        <i class="bi bi-people-fill"></i> Members
+      </a>
+      <a href="report.php">
+        <i class="bi bi-file-earmark-text-fill"></i> Reports
+      </a>
+      <a href="feedback.php">
+        <i class="bi bi-chat-square-text-fill"></i> View Feedbacks
+      </a>
     </nav>
+    
+    <div class="user-profile">
+      <img src="Red Cross.jpg" alt="Admin User" class="user-avatar">
+      <h4>Admin User</h4>
+      <p>Administrator</p>
+      <a href="#" class="logout-btn">
+        <i class="bi bi-box-arrow-right"></i> Log Out
+      </a>
+    </div>
   </aside>
 
   <section class="content-wrapper">
