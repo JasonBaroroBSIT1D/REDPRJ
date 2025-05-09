@@ -85,102 +85,9 @@
         </button>
       </section>
       
-      <section>
-        <article class="announcement-card">
-          <header class="announcement-header announcement-urgency-high">
-            <h2>URGENT: Council Meeting</h2>
-          </header>
-          <div class="announcement-body">
-            <div class="row">
-              <div class="col-md-3">
-                <p><i class="bi bi-calendar-event"></i> Posted: April 20, 2025</p>
-                <p><i class="bi bi-clock"></i> Expires: April 22, 2025</p>
-                <p><i class="bi bi-person"></i> Posted by: Admin</p>
-              </div>
-              <div class="col-md-9">
-                <p>All Red Cross Council officers are required to attend an emergency meeting on April 21, 2025, at 3:00 PM in Room 101. We will discuss urgent preparations for the upcoming Blood Donation Drive. Please bring your planning materials.</p>
-                <p><strong>Topics to be discussed:</strong></p>
-                <ul>
-                  <li>Venue preparation</li>
-                  <li>Volunteer assignments</li>
-                  <li>Medical staff coordination</li>
-                  <li>Logistics requirements</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <footer class="announcement-footer">
-            <div>
-              <span class="badge bg-danger">Urgent</span>
-              <span class="badge bg-success">Active</span>
-            </div>
-            <div>
-              <button class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil"></i> Edit</button>
-              <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i> Delete</button>
-            </div>
-          </footer>
-        </article>
-        
-        <article class="announcement-card">
-          <header class="announcement-header announcement-urgency-medium">
-            <h2>First Aid Training Registration</h2>
-          </header>
-          <div class="announcement-body">
-            <div class="row">
-              <div class="col-md-3">
-                <p><i class="bi bi-calendar-event"></i> Posted: April 15, 2025</p>
-                <p><i class="bi bi-clock"></i> Expires: April 30, 2025</p>
-                <p><i class="bi bi-person"></i> Posted by: Training Officer</p>
-              </div>
-              <div class="col-md-9">
-                <p>Registration for the First Aid Training Workshop is now open. The workshop will be held on May 5, 2025, from 1:00 PM to 5:00 PM in Room 301.</p>
-                <p>Each department should send at least 2 representatives. Space is limited to 30 participants, so please register early. Registration deadline is April 30, 2025.</p>
-                <p>To register, please visit the Red Cross office or contact the Training Officer at training@redcross.edu.</p>
-              </div>
-            </div>
-          </div>
-          <footer class="announcement-footer">
-            <div>
-              <span class="badge bg-warning text-dark">Important</span>
-              <span class="badge bg-success">Active</span>
-            </div>
-            <div>
-              <button class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil"></i> Edit</button>
-              <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i> Delete</button>
-            </div>
-          </footer>
-        </article>
-        
-        <article class="announcement-card">
-          <header class="announcement-header announcement-urgency-low">
-            <h2>Volunteer Hours Verification</h2>
-          </header>
-          <div class="announcement-body">
-            <div class="row">
-              <div class="col-md-3">
-                <p><i class="bi bi-calendar-event"></i> Posted: April 10, 2025</p>
-                <p><i class="bi bi-clock"></i> Expires: May 10, 2025</p>
-                <p><i class="bi bi-person"></i> Posted by: Secretary</p>
-              </div>
-              <div class="col-md-9">
-                <p>All volunteers who participated in the March Community Health Campaign need to verify their volunteer hours by May 10, 2025.</p>
-                <p>Please bring your volunteer log sheets to the Red Cross office during office hours (Monday-Friday, 9:00 AM - 4:00 PM) for verification and signature.</p>
-                <p>Certificates of participation will be issued after verification.</p>
-              </div>
-            </div>
-          </div>
-          <footer class="announcement-footer">
-            <div>
-              <span class="badge bg-info">Notice</span>
-              <span class="badge bg-success">Active</span>
-            </div>
-            <div>
-              <button class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil"></i> Edit</button>
-              <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i> Delete</button>
-            </div>
-          </footer>
-        </article>
-      </section>
+      <div class="announcements-container mt-4">
+        <!-- Announcements will be loaded here -->
+      </div>
     </main>
     
     <footer>
@@ -190,14 +97,15 @@
 
   <!-- Add Announcement Modal -->
   <dialog class="modal fade" id="addAnnouncementModal" tabindex="-1" aria-labelledby="addAnnouncementModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog">
       <div class="modal-content">
         <header class="modal-header">
           <h2 id="addAnnouncementModalLabel">Add New Announcement</h2>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </header>
         <section class="modal-body">
-          <form>
+          <form id="announcementForm">
+            <input type="hidden" id="announcementId">
             <div class="mb-3">
               <label for="announcementTitle" class="form-label">Title</label>
               <input type="text" class="form-control" id="announcementTitle" required>
@@ -207,36 +115,25 @@
               <label for="announcementContent" class="form-label">Content</label>
               <textarea class="form-control" id="announcementContent" rows="5" required></textarea>
             </div>
-            
-            <div class="row mb-3">
-              <div class="col-md-6">
-                <label for="announcementExpiry" class="form-label">Expiry Date</label>
-                <input type="date" class="form-control" id="announcementExpiry" required>
-              </div>
-              <div class="col-md-6">
-                <label for="announcementUrgency" class="form-label">Urgency Level</label>
-                <select class="form-select" id="announcementUrgency">
-                  <option value="low">Normal</option>
-                  <option value="medium">Important</option>
-                  <option value="high">Urgent</option>
-                </select>
-              </div>
-            </div>
-            
+
             <div class="mb-3">
-              <label for="announcementTarget" class="form-label">Target Audience</label>
-              <select class="form-select" id="announcementTarget">
-                <option value="all">All Users</option>
-                <option value="council">Council Members Only</option>
-                <option value="volunteers">Volunteers Only</option>
-                <option value="departments">Department Representatives</option>
+              <label for="announcementUrgency" class="form-label">Urgency Level</label>
+              <select class="form-select" id="announcementUrgency" required>
+                <option value="low">Normal</option>
+                <option value="medium">Important</option>
+                <option value="high">Urgent</option>
               </select>
+            </div>
+
+            <div class="mb-3">
+              <label for="announcementExpiry" class="form-label">Expiry Date</label>
+              <input type="date" class="form-control" id="announcementExpiry" required>
             </div>
           </form>
         </section>
         <footer class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-primary">Post Announcement</button>
+          <button type="button" class="btn btn-primary" id="saveAnnouncementBtn">Save Announcement</button>
         </footer>
       </div>
     </div>
@@ -249,6 +146,160 @@
     document.getElementById('toggleSidebar').addEventListener('click', function () {
       document.getElementById('sidebar').classList.toggle('active');
     });
+
+    // Load announcements
+    function loadAnnouncements() {
+      fetch('handlers/announcement_handler.php?action=get_all')
+        .then(response => response.json())
+        .then(data => {
+          if (data.status === 'success') {
+            const container = document.querySelector('.announcements-container');
+            container.innerHTML = '';
+            
+            data.data.forEach(announcement => {
+              const urgencyClass = {
+                'high': 'danger',
+                'medium': 'warning',
+                'low': 'info'
+              }[announcement.urgency];
+
+              const urgencyText = {
+                'high': 'Urgent',
+                'medium': 'Important',
+                'low': 'Normal'
+              }[announcement.urgency];
+
+              const card = document.createElement('div');
+              card.className = 'card mb-3';
+              card.innerHTML = `
+                <div class="card-body">
+                  <div class="announcement-header bg-danger text-white p-3 mb-3 rounded">
+                    <h5 class="card-title mb-0">${announcement.title}</h5>
+                  </div>
+                  <div class="urgency-badge mb-3">
+                    <span class="badge bg-${urgencyClass}">${urgencyText}</span>
+                  </div>
+                  <p class="card-text">${announcement.content}</p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                      <small class="text-muted">Posted: ${new Date(announcement.created_at).toLocaleString()}</small>
+                      <br>
+                      <small class="text-muted">Expires: ${announcement.expiry_date ? new Date(announcement.expiry_date).toLocaleDateString() : 'No expiry'}</small>
+                    </div>
+                    <div>
+                      <button class="btn btn-primary btn-sm me-2" onclick="editAnnouncement(${announcement.id})">
+                        <i class="bi bi-pencil"></i> Edit
+                      </button>
+                      <button class="btn btn-danger btn-sm" onclick="deleteAnnouncement(${announcement.id})">
+                        <i class="bi bi-trash"></i> Delete
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              `;
+              container.appendChild(card);
+            });
+          }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+
+    // Edit announcement
+    function editAnnouncement(id) {
+      fetch(`handlers/announcement_handler.php?action=get_one&id=${id}`)
+        .then(response => response.json())
+        .then(data => {
+          if (data.status === 'success') {
+            const announcement = data.data;
+            document.getElementById('announcementId').value = announcement.id;
+            document.getElementById('announcementTitle').value = announcement.title;
+            document.getElementById('announcementContent').value = announcement.content;
+            document.getElementById('announcementUrgency').value = announcement.urgency;
+            document.getElementById('announcementExpiry').value = announcement.expiry_date;
+            
+            document.getElementById('addAnnouncementModalLabel').textContent = 'Edit Announcement';
+            document.getElementById('saveAnnouncementBtn').textContent = 'Update Announcement';
+            
+            new bootstrap.Modal(document.getElementById('addAnnouncementModal')).show();
+          }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+
+    // Save announcement (Add/Update)
+    document.getElementById('saveAnnouncementBtn').addEventListener('click', function() {
+      const id = document.getElementById('announcementId').value;
+      const title = document.getElementById('announcementTitle').value;
+      const content = document.getElementById('announcementContent').value;
+      const urgency = document.getElementById('announcementUrgency').value;
+      const expiry_date = document.getElementById('announcementExpiry').value;
+
+      const formData = new FormData();
+      formData.append('action', id ? 'update' : 'add');
+      formData.append('title', title);
+      formData.append('content', content);
+      formData.append('urgency', urgency);
+      formData.append('expiry_date', expiry_date);
+      if (id) formData.append('id', id);
+
+      fetch('handlers/announcement_handler.php', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.status === 'success') {
+          // Close modal and reset form
+          bootstrap.Modal.getInstance(document.getElementById('addAnnouncementModal')).hide();
+          resetForm();
+          // Reload announcements
+          loadAnnouncements();
+        } else {
+          alert(data.message);
+        }
+      })
+      .catch(error => console.error('Error:', error));
+    });
+
+    // Reset form
+    function resetForm() {
+      document.getElementById('announcementId').value = '';
+      document.getElementById('announcementTitle').value = '';
+      document.getElementById('announcementContent').value = '';
+      document.getElementById('announcementUrgency').value = 'low';
+      document.getElementById('announcementExpiry').value = '';
+      document.getElementById('addAnnouncementModalLabel').textContent = 'Add New Announcement';
+      document.getElementById('saveAnnouncementBtn').textContent = 'Save Announcement';
+    }
+
+    // Add new announcement button
+    document.querySelector('[data-bs-target="#addAnnouncementModal"]').addEventListener('click', resetForm);
+
+    // Delete announcement
+    function deleteAnnouncement(id) {
+      if (confirm('Are you sure you want to delete this announcement?')) {
+        const formData = new FormData();
+        formData.append('action', 'delete');
+        formData.append('id', id);
+
+        fetch('handlers/announcement_handler.php', {
+          method: 'POST',
+          body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.status === 'success') {
+            loadAnnouncements();
+          } else {
+            alert(data.message);
+          }
+        })
+        .catch(error => console.error('Error:', error));
+      }
+    }
+
+    // Load announcements when page loads
+    document.addEventListener('DOMContentLoaded', loadAnnouncements);
   </script>
 </body>
 </html>

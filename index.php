@@ -143,10 +143,10 @@ if (!isset($_SESSION['username'])) {
           <section class="calendar">
             <header class="calendar-header">
               <h2>May 2025</h2>
-              <div>
-                <button class="btn btn-sm btn-outline-secondary">today</button>
-                <button class="btn btn-sm btn-outline-primary"><i class="bi bi-arrow-left"></i></button>
-                <button class="btn btn-sm btn-outline-primary"><i class="bi bi-arrow-right"></i></button>
+              <div class="nav-buttons">
+                <button class="today-btn">Today</button>
+                <button class="prev-btn"><i class="bi bi-chevron-left"></i></button>
+                <button class="next-btn"><i class="bi bi-chevron-right"></i></button>
               </div>
             </header>
             
@@ -214,6 +214,223 @@ if (!isset($_SESSION['username'])) {
     document.getElementById('toggleSidebar').addEventListener('click', function() {
       document.getElementById('sidebar').classList.toggle('active');
     });
+
+    // Calendar functionality
+    class Calendar {
+      constructor() {
+        this.date = new Date();
+        this.currentMonth = this.date.getMonth();
+        this.currentYear = this.date.getFullYear();
+        this.today = new Date();
+        
+        this.calendarHeader = document.querySelector('.calendar-header h2');
+        this.calendarGrid = document.querySelector('.calendar-grid');
+        this.prevButton = document.querySelector('.calendar-header .prev-btn');
+        this.nextButton = document.querySelector('.calendar-header .next-btn');
+        this.todayButton = document.querySelector('.calendar-header .today-btn');
+        
+        this.init();
+      }
+      
+      init() {
+        this.prevButton.addEventListener('click', () => this.previousMonth());
+        this.nextButton.addEventListener('click', () => this.nextMonth());
+        this.todayButton.addEventListener('click', () => this.goToToday());
+        this.renderCalendar();
+      }
+      
+      renderCalendar() {
+        const firstDay = new Date(this.currentYear, this.currentMonth, 1);
+        const lastDay = new Date(this.currentYear, this.currentMonth + 1, 0);
+        const startingDay = firstDay.getDay();
+        const totalDays = lastDay.getDate();
+        
+        // Update header
+        const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 
+                          'July', 'August', 'September', 'October', 'November', 'December'];
+        this.calendarHeader.textContent = `${monthNames[this.currentMonth]} ${this.currentYear}`;
+        
+        // Clear existing days except headers
+        const headers = Array.from(this.calendarGrid.children).slice(0, 7);
+        this.calendarGrid.innerHTML = '';
+        headers.forEach(header => this.calendarGrid.appendChild(header));
+        
+        // Add previous month's days
+        const prevMonthLastDay = new Date(this.currentYear, this.currentMonth, 0).getDate();
+        for (let i = startingDay - 1; i >= 0; i--) {
+          const dayElement = document.createElement('div');
+          dayElement.className = 'calendar-day other-month';
+          dayElement.textContent = prevMonthLastDay - i;
+          this.calendarGrid.appendChild(dayElement);
+        }
+        
+        // Add current month's days
+        for (let i = 1; i <= totalDays; i++) {
+          const dayElement = document.createElement('div');
+          dayElement.className = 'calendar-day';
+          
+          // Check if it's today
+          if (i === this.today.getDate() && 
+              this.currentMonth === this.today.getMonth() && 
+              this.currentYear === this.today.getFullYear()) {
+            dayElement.classList.add('today');
+          }
+          
+          dayElement.textContent = i;
+          this.calendarGrid.appendChild(dayElement);
+        }
+        
+        // Add next month's days
+        const remainingDays = 42 - (startingDay + totalDays); // 42 = 6 rows * 7 days
+        for (let i = 1; i <= remainingDays; i++) {
+          const dayElement = document.createElement('div');
+          dayElement.className = 'calendar-day other-month';
+          dayElement.textContent = i;
+          this.calendarGrid.appendChild(dayElement);
+        }
+      }
+      
+      previousMonth() {
+        this.currentMonth--;
+        if (this.currentMonth < 0) {
+          this.currentMonth = 11;
+          this.currentYear--;
+        }
+        this.renderCalendar();
+      }
+      
+      nextMonth() {
+        this.currentMonth++;
+        if (this.currentMonth > 11) {
+          this.currentMonth = 0;
+          this.currentYear++;
+        }
+        this.renderCalendar();
+      }
+      
+      goToToday() {
+        this.currentMonth = this.today.getMonth();
+        this.currentYear = this.today.getFullYear();
+        this.renderCalendar();
+      }
+    }
+
+    // Initialize calendar when the page loads
+    document.addEventListener('DOMContentLoaded', () => {
+      new Calendar();
+    });
   </script>
+  <style>
+    .calendar-day.other-month {
+      color: #ccc;
+    }
+    .calendar-day.today {
+      background-color: #dc3545;
+      color: white;
+      border-radius: 50%;
+    }
+    .calendar-day {
+      cursor: pointer;
+      padding: 5px;
+      text-align: center;
+    }
+    .calendar-day:hover {
+      background-color: #f8f9fa;
+    }
+    
+    /* New calendar header styles */
+    .calendar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+      background-color: #f8f9fa;
+      border-radius: 8px;
+      margin-bottom: 15px;
+    }
+    
+    .calendar-header h2 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #333;
+      margin: 0;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    .calendar-header .nav-buttons {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    
+    .calendar-header button {
+      padding: 6px 12px;
+      border: 1px solid #dee2e6;
+      background-color: white;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .calendar-header button:hover {
+      background-color: #e9ecef;
+      border-color: #ced4da;
+    }
+    
+    .calendar-header button.today-btn {
+      background-color: #dc3545;
+      color: white;
+      border: none;
+    }
+    
+    .calendar-header button.today-btn:hover {
+      background-color: #bb2d3b;
+    }
+    
+    .calendar-header button i {
+      font-size: 1rem;
+    }
+
+    /* Calendar grid styles */
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 5px;
+      padding: 10px;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .calendar-day {
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      border-radius: 50%;
+      transition: all 0.2s ease;
+    }
+
+    .calendar-day.header {
+      font-weight: bold;
+      color: #666;
+      border-radius: 0;
+    }
+
+    .calendar-day:not(.header):hover {
+      background-color: #e9ecef;
+    }
+
+    .calendar-day.today {
+      background-color: #dc3545;
+      color: white;
+      font-weight: bold;
+    }
+  </style>
 </body>
 </html>

@@ -85,112 +85,9 @@
         </button>
       </section>
       
-      <section>
-        <article class="event-card">
-          <header class="event-header">
-            <h2>Blood Donation Drive</h2>
-          </header>
-          <div class="event-body">
-            <div class="row">
-              <div class="col-md-3">
-                <p><i class="bi bi-calendar-event"></i> April 25, 2025</p>
-                <p><i class="bi bi-clock"></i> 9:00 AM - 4:00 PM</p>
-                <p><i class="bi bi-geo-alt"></i> University Gymnasium</p>
-              </div>
-              <div class="col-md-9">
-                <p><strong>Description:</strong></p>
-                <p>Join us for the semestral blood donation drive. We aim to collect at least 100 blood bags to support local hospitals. All students, faculty, and staff are encouraged to participate.</p>
-                <p><strong>Required Resources:</strong></p>
-                <ul>
-                  <li>10 Volunteers for registration</li>
-                  <li>5 Medical staff</li>
-                  <li>Refreshments for donors</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <footer class="event-footer">
-            <div>
-              <span class="badge bg-success">Approved</span>
-              <span class="badge bg-primary">High Priority</span>
-            </div>
-            <div>
-              <button class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil"></i> Edit</button>
-              <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i> Delete</button>
-            </div>
-          </footer>
-        </article>
-        
-        <article class="event-card">
-          <header class="event-header">
-            <h2>First Aid Training Workshop</h2>
-          </header>
-          <div class="event-body">
-            <div class="row">
-              <div class="col-md-3">
-                <p><i class="bi bi-calendar-event"></i> May 5, 2025</p>
-                <p><i class="bi bi-clock"></i> 1:00 PM - 5:00 PM</p>
-                <p><i class="bi bi-geo-alt"></i> Room 301</p>
-              </div>
-              <div class="col-md-9">
-                <p><strong>Description:</strong></p>
-                <p>Basic first aid training for all department representatives. The workshop will cover wound care, CPR basics, and emergency response procedures.</p>
-                <p><strong>Required Resources:</strong></p>
-                <ul>
-                  <li>First aid demonstration kits</li>
-                  <li>Training manuals</li>
-                  <li>Certificates for participants</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <footer class="event-footer">
-            <div>
-              <span class="badge bg-warning text-dark">Pending Approval</span>
-              <span class="badge bg-secondary">Medium Priority</span>
-            </div>
-            <div>
-              <button class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil"></i> Edit</button>
-              <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i> Delete</button>
-            </div>
-          </footer>
-        </article>
-        
-        <article class="event-card">
-          <header class="event-header">
-            <h2>Red Cross General Assembly</h2>
-          </header>
-          <div class="event-body">
-            <div class="row">
-              <div class="col-md-3">
-                <p><i class="bi bi-calendar-event"></i> April 30, 2025</p>
-                <p><i class="bi bi-clock"></i> 3:00 PM - 5:00 PM</p>
-                <p><i class="bi bi-geo-alt"></i> Auditorium</p>
-              </div>
-              <div class="col-md-9">
-                <p><strong>Description:</strong></p>
-                <p>General assembly for all Red Cross members. Agenda includes electing new officers, reviewing past activities, and planning for the upcoming semester.</p>
-                <p><strong>Required Resources:</strong></p>
-                <ul>
-                  <li>Presentation materials</li>
-                  <li>Attendance sheets</li>
-                  <li>Light refreshments</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <footer class="event-footer">
-            <div>
-              <span class="badge bg-success">Approved</span>
-              <span class="badge bg-primary">High Priority</span>
-            </div>
-            <div>
-              <button class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil"></i> Edit</button>
-              <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i> Delete</button>
-            </div>
-          </footer>
-        </article>
-      </section>
+      <div class="events-container mt-4">
+        <!-- Events will be loaded here -->
+      </div>
     </main>
     
     <footer>
@@ -199,85 +96,299 @@
   </section>
 
   <!-- Add Event Modal -->
-  <dialog class="modal fade" id="addEventModal" tabindex="-1" aria-labelledby="addEventModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+  <div class="modal fade" id="addEventModal" tabindex="-1" aria-labelledby="addEventModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
       <div class="modal-content">
-        <header class="modal-header">
-          <h2 id="addEventModalLabel">Add New Event</h2>
+        <div class="modal-header">
+          <h5 class="modal-title" id="addEventModalLabel">Add New Event</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </header>
-        <section class="modal-body">
-          <form>
+        </div>
+        <div class="modal-body">
+          <form id="addEventForm">
             <div class="mb-3">
               <label for="eventTitle" class="form-label">Event Title</label>
-              <input type="text" class="form-control" id="eventTitle" required>
+              <input type="text" class="form-control" id="eventTitle" name="title" required>
+            </div>
+            
+            <div class="mb-3">
+              <label for="eventDate" class="form-label">Date</label>
+              <input type="date" class="form-control" id="eventDate" name="event_date" required>
             </div>
             
             <div class="row mb-3">
-              <div class="col-md-6">
-                <label for="eventDate" class="form-label">Date</label>
-                <input type="date" class="form-control" id="eventDate" required>
-              </div>
-              <div class="col-md-3">
+              <div class="col">
                 <label for="eventStartTime" class="form-label">Start Time</label>
-                <input type="time" class="form-control" id="eventStartTime" required>
+                <input type="time" class="form-control" id="eventStartTime" name="start_time" required>
               </div>
-              <div class="col-md-3">
+              <div class="col">
                 <label for="eventEndTime" class="form-label">End Time</label>
-                <input type="time" class="form-control" id="eventEndTime" required>
+                <input type="time" class="form-control" id="eventEndTime" name="end_time" required>
               </div>
             </div>
             
             <div class="mb-3">
               <label for="eventLocation" class="form-label">Location</label>
-              <input type="text" class="form-control" id="eventLocation" required>
+              <input type="text" class="form-control" id="eventLocation" name="location" required>
             </div>
             
             <div class="mb-3">
               <label for="eventDescription" class="form-label">Description</label>
-              <textarea class="form-control" id="eventDescription" rows="3" required></textarea>
+              <textarea class="form-control" id="eventDescription" name="description" rows="3"></textarea>
+            </div>
+
+            <div class="mb-3">
+              <label for="eventStatus" class="form-label">Status</label>
+              <select class="form-select" id="eventStatus" name="status">
+                <option value="pending">Pending</option>
+                <option value="approved">Approved</option>
+                <option value="cancelled">Cancelled</option>
+              </select>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary" id="saveEventBtn">Save Event</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Event Modal -->
+  <div class="modal fade" id="editEventModal" tabindex="-1" aria-labelledby="editEventModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editEventModalLabel">Edit Event</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="editEventForm">
+            <input type="hidden" id="editEventId" name="id">
+            <div class="mb-3">
+              <label for="editEventTitle" class="form-label">Event Title</label>
+              <input type="text" class="form-control" id="editEventTitle" name="title" required>
             </div>
             
             <div class="mb-3">
-              <label for="eventResources" class="form-label">Required Resources</label>
-              <textarea class="form-control" id="eventResources" rows="3"></textarea>
+              <label for="editEventDate" class="form-label">Date</label>
+              <input type="date" class="form-control" id="editEventDate" name="event_date" required>
             </div>
             
             <div class="row mb-3">
-              <div class="col-md-6">
-                <label for="eventPriority" class="form-label">Priority</label>
-                <select class="form-select" id="eventPriority">
-                  <option value="high">High</option>
-                  <option value="medium" selected>Medium</option>
-                  <option value="low">Low</option>
-                </select>
+              <div class="col">
+                <label for="editEventStartTime" class="form-label">Start Time</label>
+                <input type="time" class="form-control" id="editEventStartTime" name="start_time" required>
               </div>
-              <div class="col-md-6">
-                <label for="eventStatus" class="form-label">Status</label>
-                <select class="form-select" id="eventStatus">
-                  <option value="pending" selected>Pending Approval</option>
-                  <option value="approved">Approved</option>
-                  <option value="cancelled">Cancelled</option>
-                </select>
+              <div class="col">
+                <label for="editEventEndTime" class="form-label">End Time</label>
+                <input type="time" class="form-control" id="editEventEndTime" name="end_time" required>
               </div>
             </div>
+            
+            <div class="mb-3">
+              <label for="editEventLocation" class="form-label">Location</label>
+              <input type="text" class="form-control" id="editEventLocation" name="location" required>
+            </div>
+            
+            <div class="mb-3">
+              <label for="editEventDescription" class="form-label">Description</label>
+              <textarea class="form-control" id="editEventDescription" name="description" rows="3"></textarea>
+            </div>
+
+            <div class="mb-3">
+              <label for="editEventStatus" class="form-label">Status</label>
+              <select class="form-select" id="editEventStatus" name="status">
+                <option value="pending">Pending</option>
+                <option value="approved">Approved</option>
+                <option value="cancelled">Cancelled</option>
+              </select>
+            </div>
           </form>
-        </section>
-        <footer class="modal-footer">
+        </div>
+        <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-primary">Save Event</button>
-        </footer>
+          <button type="button" class="btn btn-primary" id="updateEventBtn">Update Event</button>
+        </div>
       </div>
     </div>
-  </dialog>
-
-  
+  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script>
     document.getElementById('toggleSidebar').addEventListener('click', function () {
       document.getElementById('sidebar').classList.toggle('active');
     });
+
+    // Load events when page loads
+    document.addEventListener('DOMContentLoaded', function() {
+      loadEvents();
+    });
+
+    // Function to load events
+    function loadEvents() {
+      fetch('event_operations.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: 'action=get_events'
+      })
+      .then(response => response.json())
+      .then(events => {
+        const container = document.querySelector('.events-container');
+        container.innerHTML = '';
+        
+        events.forEach(event => {
+          const statusClass = {
+            'approved': 'success',
+            'pending': 'warning',
+            'cancelled': 'danger'
+          }[event.status];
+
+          const statusText = {
+            'approved': 'Approved',
+            'pending': 'Pending',
+            'cancelled': 'Cancelled'
+          }[event.status];
+
+          const card = document.createElement('div');
+          card.className = 'card mb-3';
+          card.innerHTML = `
+            <div class="card-body">
+              <div class="event-header bg-danger text-white p-3 mb-3 rounded">
+                <h5 class="card-title mb-0">${event.title}</h5>
+              </div>
+              <div class="urgency-badge mb-3">
+                <span class="badge bg-${statusClass}">${statusText}</span>
+              </div>
+              <div class="event-details mb-3">
+                <p class="mb-2"><i class="bi bi-calendar-event"></i> Date: ${event.event_date}</p>
+                <p class="mb-2"><i class="bi bi-clock"></i> Time: ${event.start_time} - ${event.end_time}</p>
+                <p class="mb-2"><i class="bi bi-geo-alt"></i> Location: ${event.location}</p>
+                <p class="mb-2"><i class="bi bi-info-circle"></i> Description: ${event.description || 'No description provided'}</p>
+              </div>
+              <div class="d-flex justify-content-between align-items-center">
+                <div>
+                  <small class="text-muted">Posted: ${new Date(event.created_at).toLocaleString()}</small>
+                </div>
+                <div>
+                  <button class="btn btn-primary btn-sm me-2" onclick="editEvent(${event.id})">
+                    <i class="bi bi-pencil"></i> Edit
+                  </button>
+                  <button class="btn btn-danger btn-sm" onclick="deleteEvent(${event.id})">
+                    <i class="bi bi-trash"></i> Delete
+                  </button>
+                </div>
+              </div>
+            </div>
+          `;
+          container.appendChild(card);
+        });
+      })
+      .catch(error => console.error('Error:', error));
+    }
+
+    // Edit event
+    function editEvent(id) {
+      fetch('event_operations.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `action=get_event&id=${id}`
+      })
+      .then(response => response.json())
+      .then(data => {
+        if(data.status === 'success') {
+          const event = data.data;
+          document.getElementById('editEventId').value = event.id;
+          document.getElementById('editEventTitle').value = event.title;
+          document.getElementById('editEventDate').value = event.event_date;
+          document.getElementById('editEventStartTime').value = event.start_time;
+          document.getElementById('editEventEndTime').value = event.end_time;
+          document.getElementById('editEventLocation').value = event.location;
+          document.getElementById('editEventDescription').value = event.description;
+          document.getElementById('editEventStatus').value = event.status;
+          
+          const editModal = new bootstrap.Modal(document.getElementById('editEventModal'));
+          editModal.show();
+        }
+      })
+      .catch(error => console.error('Error:', error));
+    }
+
+    // Update event
+    document.getElementById('updateEventBtn').addEventListener('click', function() {
+      const form = document.getElementById('editEventForm');
+      const formData = new FormData(form);
+      formData.append('action', 'update');
+
+      fetch('event_operations.php', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+        if(data.status === 'success') {
+          const modal = bootstrap.Modal.getInstance(document.getElementById('editEventModal'));
+          modal.hide();
+          loadEvents();
+          alert('Event updated successfully!');
+        } else {
+          alert('Error: ' + data.message);
+        }
+      })
+      .catch(error => console.error('Error:', error));
+    });
+
+    // Save event
+    document.getElementById('saveEventBtn').addEventListener('click', function() {
+      const form = document.getElementById('addEventForm');
+      const formData = new FormData(form);
+      formData.append('action', 'add');
+
+      fetch('event_operations.php', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+        if(data.status === 'success') {
+          const modal = bootstrap.Modal.getInstance(document.getElementById('addEventModal'));
+          modal.hide();
+          form.reset();
+          loadEvents();
+          alert('Event added successfully!');
+        } else {
+          alert('Error: ' + data.message);
+        }
+      })
+      .catch(error => console.error('Error:', error));
+    });
+
+    // Delete event
+    function deleteEvent(id) {
+      if(confirm('Are you sure you want to delete this event?')) {
+        fetch('event_operations.php', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          body: `action=delete&id=${id}`
+        })
+        .then(response => response.json())
+        .then(data => {
+          if(data.status === 'success') {
+            loadEvents();
+            alert('Event deleted successfully!');
+          } else {
+            alert('Error: ' + data.message);
+          }
+        })
+        .catch(error => console.error('Error:', error));
+      }
+    }
   </script>
 </body>
 </html>

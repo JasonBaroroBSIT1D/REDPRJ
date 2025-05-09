@@ -1,8 +1,35 @@
     :root {
-      --primary-red: #dc3545;
-      --hover-red: #c82333;
-      --light-text: #ffffff;
-      --border: #dee2e6;
+      /* Main Colors - Softer, more pleasant reds */
+      --primary-red: #e63946;
+      --hover-red: #d62828;
+      --light-red: #ffcdd2;
+      --dark-red: #b71c1c;
+      
+      /* Secondary Colors - Warm, inviting tones */
+      --soft-red: #ff8a80;
+      --muted-red: #ff9e80;
+      --pale-red: #ffb4a2;
+      
+      /* Accent Colors - Complementary warm tones */
+      --warm-orange: #ff9e40;
+      --soft-coral: #ff7f50;
+      --peach: #ffb6a3;
+      
+      /* Neutral Colors - Warm grays */
+      --light-gray: #f5f5f5;
+      --medium-gray: #e0e0e0;
+      --dark-gray: #424242;
+      
+      /* Text Colors */
+      --text-dark: #2d3436;
+      --text-light: #ffffff;
+      --text-muted: #636e72;
+      
+      /* Status Colors - Softer versions */
+      --success: #66bb6a;
+      --warning: #ffb74d;
+      --info: #4fc3f7;
+      --danger: #ef5350;
     }
     
     * {
@@ -21,14 +48,14 @@
     
     /* Sidebar Styles - Modeled after ACCESS */
     #sidebar {
-      background-color: var(--primary-red);
+      background: linear-gradient(135deg, var(--primary-red), var(--soft-coral));
       width: 280px;
       height: 100vh;
       color: white;
       display: flex;
       flex-direction: column;
       transition: all 0.3s;
-      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+      box-shadow: 2px 0 15px rgba(0, 0, 0, 0.1);
       overflow-y: auto; /* ADD THIS LINE */
       scrollbar-width: thin; /* Optional for Firefox */
     }
@@ -71,7 +98,7 @@
       display: flex;
       align-items: center;
       padding: 15px 20px;
-      color: var(--light-text);
+      color: var(--text-light);
       text-decoration: none;
       border-radius: 10px;
       margin-bottom: 8px;
@@ -86,12 +113,13 @@
     }
     
     nav a:hover {
-      background-color: var(--hover-red);
+      background-color: var(--soft-red);
       transform: translateX(5px);
+      transition: all 0.3s ease;
     }
     
     nav a.active {
-      background-color: rgba(255, 255, 255, 0.2);
+      background-color: var(--warm-orange);
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
     
@@ -144,12 +172,13 @@
     }
     
     header {
-      background-color: var(--primary-red);
+      background: linear-gradient(135deg, var(--primary-red), var(--soft-coral));
       padding: 10px 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       color: white;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     }
     
     .hamburger {
@@ -170,14 +199,16 @@
     }
     
     .welcome-banner {
-      background-color: #f0f8ff;
+      background: linear-gradient(135deg, var(--light-red), var(--peach));
       padding: 15px;
       margin-bottom: 20px;
-      border-radius: 5px;
+      border-radius: 8px;
+      border-left: 4px solid var(--primary-red);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     }
     
     .welcome-banner h2 {
-      color: var(--primary-red);
+      color: var(--dark-red);
       margin: 0;
     }
     
@@ -194,16 +225,19 @@
       align-items: center;
       justify-content: center;
       padding: 25px;
-      border-radius: 5px;
+      border-radius: 12px;
       color: white;
       text-align: center;
       text-decoration: none;
       transition: all 0.3s;
+      background: linear-gradient(135deg, var(--primary-red), var(--soft-coral));
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
     
     .feature-item:hover {
+      background: linear-gradient(135deg, var(--soft-coral), var(--primary-red));
       transform: translateY(-5px);
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
     }
     
     .feature-item i {
@@ -364,8 +398,8 @@
   
   /* Modal Styling Enhancements */
   .modal-header {
-    background-color: var(--primary-red);
-    color: white;
+    background: linear-gradient(135deg, var(--primary-red), var(--soft-coral));
+    color: var(--text-light);
   }
   
   .modal-header h2 {
@@ -432,5 +466,125 @@
       .feature-grid {
         grid-template-columns: 1fr;
       }
+    }
+    
+    .announcement-header {
+        background: linear-gradient(135deg, var(--primary-red), var(--soft-coral));
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 8px 8px 0 0;
+    }
+    
+    .announcement-header .card-title {
+        font-weight: 600;
+        font-size: 1.25rem;
+    }
+    
+    .urgency-badge {
+        margin-top: -0.5rem;
+    }
+    
+    .urgency-badge .badge {
+        font-size: 0.875rem;
+        padding: 0.5em 1.2em;
+        border-radius: 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Urgency level colors - attractive versions */
+    .badge.bg-danger {
+        background: linear-gradient(135deg, var(--danger), var(--soft-red)) !important;
+        color: var(--text-light);
+    }
+    
+    .badge.bg-warning {
+        background: linear-gradient(135deg, var(--warning), var(--warm-orange)) !important;
+        color: var(--text-dark);
+    }
+    
+    .badge.bg-info {
+        background: linear-gradient(135deg, var(--info), var(--soft-coral)) !important;
+        color: var(--text-light);
+    }
+    
+    /* Card Styles */
+    .card {
+        border: none;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+        border-radius: 12px;
+        overflow: hidden;
+    }
+    
+    .card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Button Styles */
+    .btn-primary {
+        background: linear-gradient(135deg, var(--primary-red), var(--soft-coral));
+        border: none;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+    }
+    
+    .btn-primary:hover {
+        background: linear-gradient(135deg, var(--hover-red), var(--soft-red));
+        transform: translateY(-1px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+    
+    .btn-danger {
+        background: linear-gradient(135deg, var(--danger), var(--soft-red));
+        border: none;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    .btn-danger:hover {
+        background: linear-gradient(135deg, var(--soft-red), var(--danger));
+        transform: translateY(-1px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+    
+    /* Form Styles */
+    .form-control {
+        border: 2px solid var(--medium-gray);
+        border-radius: 8px;
+        transition: all 0.3s ease;
+    }
+    
+    .form-control:focus {
+        border-color: var(--soft-coral);
+        box-shadow: 0 0 0 0.2rem rgba(255, 127, 80, 0.25);
+    }
+    
+    /* Modal Styles */
+    .modal-content {
+        border-radius: 12px;
+        overflow: hidden;
+    }
+    
+    /* Table Styles */
+    .table thead th {
+        background: linear-gradient(135deg, var(--light-red), var(--peach));
+        color: var(--dark-red);
+        border-bottom: 2px solid var(--primary-red);
+        font-weight: 600;
+    }
+    
+    /* Alert Styles */
+    .alert-danger {
+        background: linear-gradient(135deg, var(--light-red), var(--peach));
+        border: none;
+        color: var(--dark-red);
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+    
+    /* Footer Styles */
+    footer {
+        background: linear-gradient(135deg, var(--light-gray), var(--medium-gray));
+        border-top: 1px solid var(--medium-gray);
+        color: var(--text-muted);
     }
   

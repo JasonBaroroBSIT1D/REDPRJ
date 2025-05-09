@@ -389,11 +389,11 @@
         <aside class="side-column">
           <section class="calendar">
             <header class="calendar-header">
-              <h2>April 2025</h2>
-              <div>
-                <button class="btn btn-sm btn-outline-secondary">today</button>
-                <button class="btn btn-sm btn-outline-primary"><i class="bi bi-arrow-left"></i></button>
-                <button class="btn btn-sm btn-outline-primary"><i class="bi bi-arrow-right"></i></button>
+              <h2>May 2025</h2>
+              <div class="nav-buttons">
+                <button class="today-btn">Today</button>
+                <button class="prev-btn"><i class="bi bi-chevron-left"></i></button>
+                <button class="next-btn"><i class="bi bi-chevron-right"></i></button>
               </div>
             </header>
             
@@ -405,46 +405,6 @@
               <div class="calendar-day header">Thu</div>
               <div class="calendar-day header">Fri</div>
               <div class="calendar-day header">Sat</div>
-              
-              <div class="calendar-day">30</div>
-              <div class="calendar-day">31</div>
-              <div class="calendar-day">1</div>
-              <div class="calendar-day">2</div>
-              <div class="calendar-day">3</div>
-              <div class="calendar-day">4</div>
-              <div class="calendar-day">5</div>
-              
-              <div class="calendar-day">6</div>
-              <div class="calendar-day">7</div>
-              <div class="calendar-day">8</div>
-              <div class="calendar-day">9</div>
-              <div class="calendar-day">10</div>
-              <div class="calendar-day">11</div>
-              <div class="calendar-day">12</div>
-              
-              <div class="calendar-day">13</div>
-              <div class="calendar-day">14</div>
-              <div class="calendar-day">15</div>
-              <div class="calendar-day">16</div>
-              <div class="calendar-day">17</div>
-              <div class="calendar-day">18</div>
-              <div class="calendar-day">19</div>
-              
-              <div class="calendar-day">20</div>
-              <div class="calendar-day today">21</div>
-              <div class="calendar-day">22</div>
-              <div class="calendar-day">23</div>
-              <div class="calendar-day">24</div>
-              <div class="calendar-day">25</div>
-              <div class="calendar-day">26</div>
-              
-              <div class="calendar-day">27</div>
-              <div class="calendar-day">28</div>
-              <div class="calendar-day">29</div>
-              <div class="calendar-day">30</div>
-              <div class="calendar-day">1</div>
-              <div class="calendar-day">2</div>
-              <div class="calendar-day">3</div>
             </section>
           </section>
           
@@ -574,13 +534,242 @@
                         </footer>
                       </div>
                     </div>
-                  </dialog>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </dialog>
 
-                  <script>
-    document.getElementById('toggleSidebar').addEventListener('click', function () {
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.getElementById('toggleSidebar').addEventListener('click', function() {
       document.getElementById('sidebar').classList.toggle('active');
     });
+
+    // Calendar functionality
+    class Calendar {
+      constructor() {
+        this.date = new Date();
+        this.currentMonth = this.date.getMonth();
+        this.currentYear = this.date.getFullYear();
+        this.today = new Date();
+        
+        this.calendarHeader = document.querySelector('.calendar-header h2');
+        this.calendarGrid = document.querySelector('.calendar-grid');
+        this.prevButton = document.querySelector('.calendar-header .prev-btn');
+        this.nextButton = document.querySelector('.calendar-header .next-btn');
+        this.todayButton = document.querySelector('.calendar-header .today-btn');
+        
+        this.init();
+      }
+      
+      init() {
+        this.prevButton.addEventListener('click', () => this.previousMonth());
+        this.nextButton.addEventListener('click', () => this.nextMonth());
+        this.todayButton.addEventListener('click', () => this.goToToday());
+        this.renderCalendar();
+      }
+      
+      renderCalendar() {
+        const firstDay = new Date(this.currentYear, this.currentMonth, 1);
+        const lastDay = new Date(this.currentYear, this.currentMonth + 1, 0);
+        const startingDay = firstDay.getDay();
+        const totalDays = lastDay.getDate();
+        
+        // Update header
+        const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 
+                          'July', 'August', 'September', 'October', 'November', 'December'];
+        this.calendarHeader.textContent = `${monthNames[this.currentMonth]} ${this.currentYear}`;
+        
+        // Clear existing days except headers
+        const headers = Array.from(this.calendarGrid.children).slice(0, 7);
+        this.calendarGrid.innerHTML = '';
+        headers.forEach(header => this.calendarGrid.appendChild(header));
+        
+        // Add previous month's days
+        const prevMonthLastDay = new Date(this.currentYear, this.currentMonth, 0).getDate();
+        for (let i = startingDay - 1; i >= 0; i--) {
+          const dayElement = document.createElement('div');
+          dayElement.className = 'calendar-day other-month';
+          dayElement.textContent = prevMonthLastDay - i;
+          this.calendarGrid.appendChild(dayElement);
+        }
+        
+        // Add current month's days
+        for (let i = 1; i <= totalDays; i++) {
+          const dayElement = document.createElement('div');
+          dayElement.className = 'calendar-day';
+          
+          // Check if it's today
+          if (i === this.today.getDate() && 
+              this.currentMonth === this.today.getMonth() && 
+              this.currentYear === this.today.getFullYear()) {
+            dayElement.classList.add('today');
+          }
+          
+          dayElement.textContent = i;
+          this.calendarGrid.appendChild(dayElement);
+        }
+        
+        // Add next month's days
+        const remainingDays = 42 - (startingDay + totalDays); // 42 = 6 rows * 7 days
+        for (let i = 1; i <= remainingDays; i++) {
+          const dayElement = document.createElement('div');
+          dayElement.className = 'calendar-day other-month';
+          dayElement.textContent = i;
+          this.calendarGrid.appendChild(dayElement);
+        }
+      }
+      
+      previousMonth() {
+        this.currentMonth--;
+        if (this.currentMonth < 0) {
+          this.currentMonth = 11;
+          this.currentYear--;
+        }
+        this.renderCalendar();
+      }
+      
+      nextMonth() {
+        this.currentMonth++;
+        if (this.currentMonth > 11) {
+          this.currentMonth = 0;
+          this.currentYear++;
+        }
+        this.renderCalendar();
+      }
+      
+      goToToday() {
+        this.currentMonth = this.today.getMonth();
+        this.currentYear = this.today.getFullYear();
+        this.renderCalendar();
+      }
+    }
+
+    // Initialize calendar when the page loads
+    document.addEventListener('DOMContentLoaded', () => {
+      new Calendar();
+    });
   </script>
-                </body>
-                </html>
+  <style>
+    .calendar-day.other-month {
+      color: #ccc;
+    }
+    .calendar-day.today {
+      background-color: #dc3545;
+      color: white;
+      border-radius: 50%;
+    }
+    .calendar-day {
+      cursor: pointer;
+      padding: 3px;
+      text-align: center;
+    }
+    .calendar-day:hover {
+      background-color: #f8f9fa;
+    }
+    
+    /* New calendar header styles */
+    .calendar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px;
+      background-color: #f8f9fa;
+      border-radius: 6px;
+      margin-bottom: 10px;
+    }
+    
+    .calendar-header h2 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #333;
+      margin: 0;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .calendar-header .nav-buttons {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+    }
+    
+    .calendar-header button {
+      padding: 4px 8px;
+      border: 1px solid #dee2e6;
+      background-color: white;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+    }
+    
+    .calendar-header button:hover {
+      background-color: #e9ecef;
+      border-color: #ced4da;
+    }
+    
+    .calendar-header button.today-btn {
+      background-color: #dc3545;
+      color: white;
+      border: none;
+    }
+    
+    .calendar-header button.today-btn:hover {
+      background-color: #bb2d3b;
+    }
+    
+    .calendar-header button i {
+      font-size: 0.8rem;
+    }
+
+    /* Calendar grid styles */
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 2px;
+      padding: 8px;
+      background-color: white;
+      border-radius: 6px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .calendar-day {
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      border-radius: 50%;
+      transition: all 0.2s ease;
+      min-height: 24px;
+    }
+
+    .calendar-day.header {
+      font-weight: bold;
+      color: #666;
+      border-radius: 0;
+      font-size: 0.7rem;
+    }
+
+    .calendar-day:not(.header):hover {
+      background-color: #e9ecef;
+    }
+
+    .calendar-day.today {
+      background-color: #dc3545;
+      color: white;
+      font-weight: bold;
+    }
+  </style>
+</body>
+</html>
                 
