@@ -86,10 +86,10 @@
             <div class="card-header d-flex justify-content-between align-items-center">
               <h2 class="mb-0">Member Directory</h2>
               <div>
-                <button class="btn btn-outline-primary me-2">
+                <a href="handlers/export_members.php" class="btn btn-outline-primary me-2">
                   <i class="bi bi-download me-1"></i>Export
-                </button>
-                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#addMemberModal">
+                </a>
+                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#memberModal">
                   <i class="bi bi-person-plus me-1"></i>Add Member
                 </button>
               </div>
@@ -129,6 +129,7 @@
                     <tr>
                       <th>ID</th>
                       <th>Name</th>
+                      <th>Student ID</th>
                       <th>Department</th>
                       <th>Year Level</th>
                       <th>Position</th>
@@ -136,175 +137,18 @@
                       <th>Actions</th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr>
-                      <td>RC-001</td>
-                      <td>Maria Clara</td>
-                      <td>BSIT</td>
-                      <td>2nd Year</td>
-                      <td>President</td>
-                      <td><span class="badge bg-success">Active</span></td>
-                      <td>
-                        <button class="btn btn-sm btn-primary"><i class="bi bi-eye"></i></button>
-                        <button class="btn btn-sm btn-warning"><i class="bi bi-pencil"></i></button>
-                        <button class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>RC-002</td>
-                      <td>Jose Rizal</td>
-                      <td>BTLED-ICT</td>
-                      <td>3rd Year</td>
-                      <td>Vice President</td>
-                      <td><span class="badge bg-success">Active</span></td>
-                      <td>
-                        <button class="btn btn-sm btn-primary"><i class="bi bi-eye"></i></button>
-                        <button class="btn btn-sm btn-warning"><i class="bi bi-pencil"></i></button>
-                        <button class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>RC-003</td>
-                      <td>Andres Bonifacio</td>
-                      <td>BFPT</td>
-                      <td>1st Year</td>
-                      <td>Secretary</td>
-                      <td><span class="badge bg-success">Active</span></td>
-                      <td>
-                        <button class="btn btn-sm btn-primary"><i class="bi bi-eye"></i></button>
-                        <button class="btn btn-sm btn-warning"><i class="bi bi-pencil"></i></button>
-                        <button class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>RC-004</td>
-                      <td>Gabriela Silang</td>
-                      <td>BTLED-HE</td>
-                      <td>2nd Year</td>
-                      <td>Treasurer</td>
-                      <td><span class="badge bg-success">Active</span></td>
-                      <td>
-                        <button class="btn btn-sm btn-primary"><i class="bi bi-eye"></i></button>
-                        <button class="btn btn-sm btn-warning"><i class="bi bi-pencil"></i></button>
-                        <button class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>RC-005</td>
-                      <td>Emilio Aguinaldo</td>
-                      <td>BTLED-IA</td>
-                      <td>4th Year</td>
-                      <td>Member</td>
-                      <td><span class="badge bg-secondary">Inactive</span></td>
-                      <td>
-                        <button class="btn btn-sm btn-primary"><i class="bi bi-eye"></i></button>
-                        <button class="btn btn-sm btn-warning"><i class="bi bi-pencil"></i></button>
-                        <button class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></button>
-                      </td>
-                    </tr>
+                  <tbody id="membersTableBody">
+                    <!-- Members will be dynamically added here -->
                   </tbody>
                 </table>
               </div>
             </div>
             <div class="card-footer">
               <nav aria-label="Page navigation">
-                <ul class="pagination justify-content-center">
-                  <li class="page-item disabled">
-                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                  </li>
-                  <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                  <li class="page-item"><a class="page-link" href="#">2</a></li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item">
-                    <a class="page-link" href="#">Next</a>
-                  </li>
+                <ul class="pagination justify-content-center" id="pagination">
+                  <!-- Pagination will be dynamically added here -->
                 </ul>
               </nav>
-            </div>
-          </div>
-          
-          <div class="row">
-            <div class="col-md-6 mb-4">
-              <div class="card">
-                <div class="card-header">
-                  <h2>Department Distribution</h2>
-                </div>
-                <div class="card-body">
-                  <div class="table-responsive">
-                    <table class="table">
-                      <thead>
-                        <tr>
-                          <th>Department</th>
-                          <th>Members</th>
-                          <th>Percentage</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>BSIT</td>
-                          <td>15</td>
-                          <td>30%</td>
-                        </tr>
-                        <tr>
-                          <td>BTLED-IA</td>
-                          <td>8</td>
-                          <td>16%</td>
-                        </tr>
-                        <tr>
-                          <td>BTLED-HE</td>
-                          <td>10</td>
-                          <td>20%</td>
-                        </tr>
-                        <tr>
-                          <td>BTLED-ICT</td>
-                          <td>12</td>
-                          <td>24%</td>
-                        </tr>
-                        <tr>
-                          <td>BFPT</td>
-                          <td>5</td>
-                          <td>10%</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-6 mb-4">
-              <div class="card">
-                <div class="card-header">
-                  <h2>Member Statistics</h2>
-                </div>
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col-md-6 mb-3">
-                      <div class="p-3 bg-danger text-white rounded">
-                        <h3>50</h3>
-                        <p class="mb-0">Total Members</p>
-                      </div>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                      <div class="p-3 bg-success text-white rounded">
-                        <h3>45</h3>
-                        <p class="mb-0">Active Members</p>
-                      </div>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                      <div class="p-3 bg-primary text-white rounded">
-                        <h3>12</h3>
-                        <p class="mb-0">New This Year</p>
-                      </div>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                      <div class="p-3 bg-warning text-dark rounded">
-                        <h3>8</h3>
-                        <p class="mb-0">Officers</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </section>
@@ -331,43 +175,7 @@
             </section>
           </section>
           
-          <div class="card mt-4">
-            <div class="card-header">
-              <h2>Recent Activities</h2>
-            </div>
-            <div class="card-body p-0">
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item">
-                  <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-1">New member added</h5>
-                    <small class="text-muted">Today</small>
-                  </div>
-                  <p class="mb-1">Juan Dela Cruz joined Red Cross Council</p>
-                </li>
-                <li class="list-group-item">
-                  <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-1">Member status updated</h5>
-                    <small class="text-muted">Yesterday</small>
-                </div>
-                <p class="mb-1">Maria Santos changed to inactive status</p>
-              </li>
-              <li class="list-group-item">
-                <div class="d-flex w-100 justify-content-between">
-                  <h5 class="mb-1">Position updated</h5>
-                  <small class="text-muted">2 days ago</small>
-                </div>
-                <p class="mb-1">Pedro Gonzales promoted to Committee Head</p>
-              </li>
-              <li class="list-group-item">
-                <div class="d-flex w-100 justify-content-between">
-                  <h5 class="mb-1">Member profile updated</h5>
-                  <small class="text-muted">3 days ago</small>
-                </div>
-                <p class="mb-1">Contact information updated for 5 members</p>
-              </li>
-            </ul>
-          </div>
-        </div>
+         
       </aside>
     </section>
   </main>
@@ -377,112 +185,93 @@
   </footer>
 </section>
 
-<!-- Add Member Modal -->
-<dialog class="modal fade" id="addMemberModal" tabindex="-1" aria-labelledby="addMemberModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
+<!-- Add/Edit Member Modal -->
+<div class="modal fade" id="memberModal" tabindex="-1" aria-labelledby="memberModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
     <div class="modal-content">
-      <header class="modal-header">
-        <h2 id="addMemberModalLabel">Add New Member</h2>
+      <div class="modal-header">
+        <h5 class="modal-title" id="memberModalLabel">Add New Member</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </header>
-      <section class="modal-body">
-        <form>
-          <div class="row mb-3">
-            <div class="col-md-6">
-              <label for="firstName" class="form-label">First Name</label>
-              <input type="text" class="form-control" id="firstName" required>
-            </div>
-            <div class="col-md-6">
-              <label for="lastName" class="form-label">Last Name</label>
-              <input type="text" class="form-control" id="lastName" required>
-            </div>
-          </div>
-          <div class="row mb-3">
-            <div class="col-md-6">
-              <label for="studentId" class="form-label">Student ID</label>
-              <input type="text" class="form-control" id="studentId" required>
-            </div>
-            <div class="col-md-6">
-              <label for="email" class="form-label">Email Address</label>
-              <input type="email" class="form-control" id="email" required>
-            </div>
-          </div>
-          <div class="row mb-3">
-            <div class="col-md-6">
-              <label for="department" class="form-label">Department</label>
-              <select class="form-select" id="department" required>
-                <option value="" selected disabled>Select Department</option>
-                <option value="BSIT">BSIT</option>
-                <option value="BTLED-IA">BTLED-IA</option>
-                <option value="BTLED-HE">BTLED-HE</option>
-                <option value="BTLED-ICT">BTLED-ICT</option>
-                <option value="BFPT">BFPT</option>
-              </select>
-            </div>
-            <div class="col-md-6">
-              <label for="yearLevel" class="form-label">Year Level</label>
-              <select class="form-select" id="yearLevel" required>
-                <option value="" selected disabled>Select Year Level</option>
-                <option value="1st Year">1st Year</option>
-                <option value="2nd Year">2nd Year</option>
-                <option value="3rd Year">3rd Year</option>
-                <option value="4th Year">4th Year</option>
-              </select>
-            </div>
-          </div>
-          <div class="row mb-3">
-            <div class="col-md-6">
-              <label for="position" class="form-label">Position</label>
-              <select class="form-select" id="position" required>
-                <option value="" selected disabled>Select Position</option>
-                <option value="President">President</option>
-                <option value="Vice President">Vice President</option>
-                <option value="Secretary">Secretary</option>
-                <option value="Treasurer">Treasurer</option>
-                <option value="Public Relations Officer">Public Relations Officer</option>
-                <option value="Committee Head">Committee Head</option>
-                <option value="Member">Member</option>
-              </select>
-            </div>
-            <div class="col-md-6">
-              <label for="contactNumber" class="form-label">Contact Number</label>
-              <input type="tel" class="form-control" id="contactNumber" required>
-            </div>
+      </div>
+      <div class="modal-body">
+        <form id="memberForm">
+          <input type="hidden" id="memberId" name="id">
+          <div class="mb-3">
+            <label for="name" class="form-label">Full Name</label>
+            <input type="text" class="form-control" id="name" name="name" required>
           </div>
           <div class="mb-3">
-            <label for="address" class="form-label">Address</label>
-            <textarea class="form-control" id="address" rows="2"></textarea>
+            <label for="student_id" class="form-label">Student ID</label>
+            <input type="text" class="form-control" id="student_id" name="student_id" required>
           </div>
           <div class="mb-3">
-            <label class="form-label">Status</label>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="status" id="active" value="active" checked>
-              <label class="form-check-label" for="active">
-                Active
-              </label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="status" id="inactive" value="inactive">
-              <label class="form-check-label" for="inactive">
-                Inactive
-              </label>
-            </div>
+            <label for="department" class="form-label">Department</label>
+            <select class="form-select" id="department" name="department" required>
+              <option value="">Select Department</option>
+              <option value="BSIT">BSIT</option>
+              <option value="BTLED-IA">BTLED-IA</option>
+              <option value="BTLED-HE">BTLED-HE</option>
+              <option value="BTLED-ICT">BTLED-ICT</option>
+              <option value="BFPT">BFPT</option>
+            </select>
           </div>
           <div class="mb-3">
-            <label for="profilePicture" class="form-label">Profile Picture</label>
-            <input class="form-control" type="file" id="profilePicture">
+            <label for="year_level" class="form-label">Year Level</label>
+            <select class="form-select" id="year_level" name="year_level" required>
+              <option value="">Select Year Level</option>
+              <option value="1st Year">1st Year</option>
+              <option value="2nd Year">2nd Year</option>
+              <option value="3rd Year">3rd Year</option>
+              <option value="4th Year">4th Year</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="position" class="form-label">Position</label>
+            <input type="text" class="form-control" id="position" name="position">
+          </div>
+          <div class="mb-3">
+            <label for="status" class="form-label">Status</label>
+            <select class="form-select" id="status" name="status" required>
+              <option value="Active">Active</option>
+              <option value="Inactive">Inactive</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" name="email">
+          </div>
+          <div class="mb-3">
+            <label for="contact_number" class="form-label">Contact Number</label>
+            <input type="text" class="form-control" id="contact_number" name="contact_number">
           </div>
         </form>
-      </section>
-      <footer class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-danger">Save Member</button>
-      </footer>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="saveMember">Save Member</button>
+      </div>
     </div>
   </div>
-</dialog>
+</div>
 
-
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Confirm Delete</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to delete this member?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-danger" id="confirmDelete">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
@@ -594,8 +383,261 @@
     document.addEventListener('DOMContentLoaded', () => {
       new Calendar();
     });
-  </script>
-  <style>
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Load members on page load
+        loadMembers();
+
+        // Search functionality
+        const searchInput = document.querySelector('input[placeholder="Search members..."]');
+        searchInput.addEventListener('input', debounce(loadMembers, 500));
+
+        // Department filter
+        const departmentSelect = document.querySelector('select:nth-of-type(1)');
+        departmentSelect.addEventListener('change', loadMembers);
+
+        // Status filter
+        const statusSelect = document.querySelector('select:nth-of-type(2)');
+        statusSelect.addEventListener('change', loadMembers);
+
+        // Add member button click handler
+        document.querySelector('[data-bs-target="#memberModal"]').addEventListener('click', function() {
+            document.getElementById('memberForm').reset();
+            document.getElementById('memberId').value = '';
+            document.getElementById('memberModalLabel').textContent = 'Add New Member';
+        });
+
+        // Save member button click handler
+        document.getElementById('saveMember').addEventListener('click', function() {
+            const form = document.getElementById('memberForm');
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+
+            const formData = new FormData(form);
+            const action = formData.get('id') ? 'update' : 'create';
+            formData.append('action', action);
+
+            fetch('handlers/member_operations.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    const modal = bootstrap.Modal.getInstance(document.getElementById('memberModal'));
+                    modal.hide();
+                    form.reset();
+                    loadMembers();
+                }
+                alert(data.message);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while saving the member.');
+            });
+        });
+
+        // Delete member confirmation handler
+        document.getElementById('confirmDelete').addEventListener('click', function() {
+            const memberId = this.dataset.memberId;
+            if (memberId) {
+                const formData = new FormData();
+                formData.append('action', 'delete');
+                formData.append('id', memberId);
+
+                fetch('handlers/member_operations.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        const modal = bootstrap.Modal.getInstance(document.getElementById('deleteModal'));
+                        modal.hide();
+                        loadMembers();
+                    }
+                    alert(data.message);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred while deleting the member.');
+                });
+            }
+        });
+    });
+
+    function debounce(func, wait) {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
+    }
+
+    // Global variables
+    let currentPage = 1;
+    const itemsPerPage = 10;
+    let members = [];
+    let memberToDelete = null;
+
+    // Load members
+    function loadMembers() {
+      const formData = new FormData();
+      formData.append('action', 'getAll');
+
+      fetch('handlers/member_operations.php', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          displayMembers(data.data);
+        } else {
+          alert(data.message);
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred while loading members.');
+      });
+    }
+
+    // Display members in table
+    function displayMembers(members) {
+      const tbody = document.getElementById('membersTableBody');
+      tbody.innerHTML = '';
+      
+      members.forEach(member => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${member.id}</td>
+          <td>${member.name}</td>
+          <td>${member.student_id}</td>
+          <td>${member.department}</td>
+          <td>${member.year_level}</td>
+          <td>${member.position || '-'}</td>
+          <td><span class="badge ${member.status === 'Active' ? 'bg-success' : 'bg-danger'}">${member.status}</span></td>
+          <td>
+            <button class="btn btn-sm btn-primary edit-member" data-id="${member.id}">
+              <i class="bi bi-pencil"></i>
+            </button>
+            <button class="btn btn-sm btn-danger delete-member" data-id="${member.id}">
+              <i class="bi bi-trash"></i>
+            </button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      setupEventListeners();
+      updatePagination();
+    }
+
+    // Update pagination
+    function updatePagination() {
+      const totalPages = Math.ceil(members.length / itemsPerPage);
+      const pagination = document.getElementById('pagination');
+      pagination.innerHTML = '';
+
+      // Previous button
+      pagination.innerHTML += `
+        <li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
+          <a class="page-link" href="#" data-page="${currentPage - 1}">Previous</a>
+        </li>
+      `;
+
+      // Page numbers
+      for (let i = 1; i <= totalPages; i++) {
+        pagination.innerHTML += `
+          <li class="page-item ${currentPage === i ? 'active' : ''}">
+            <a class="page-link" href="#" data-page="${i}">${i}</a>
+          </li>
+        `;
+      }
+
+      // Next button
+      pagination.innerHTML += `
+        <li class="page-item ${currentPage === totalPages ? 'disabled' : ''}">
+          <a class="page-link" href="#" data-page="${currentPage + 1}">Next</a>
+        </li>
+      `;
+
+      // Add click event listeners to pagination
+      document.querySelectorAll('.page-link').forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          const page = parseInt(e.target.dataset.page);
+          if (page && page !== currentPage) {
+            currentPage = page;
+            displayMembers();
+          }
+        });
+      });
+    }
+
+    // Setup event listeners
+    function setupEventListeners() {
+      // Edit member buttons
+      document.querySelectorAll('.edit-member').forEach(button => {
+        button.addEventListener('click', () => {
+          const id = button.dataset.id;
+          loadMemberForEdit(id);
+        });
+      });
+
+      // Delete member buttons
+      document.querySelectorAll('.delete-member').forEach(button => {
+        button.addEventListener('click', () => {
+          memberToDelete = button.dataset.id;
+          new bootstrap.Modal(document.getElementById('deleteModal')).show();
+        });
+      });
+    }
+
+    // Load member data for editing
+    function loadMemberForEdit(memberId) {
+      const formData = new FormData();
+      formData.append('action', 'get');
+      formData.append('id', memberId);
+
+      fetch('handlers/member_operations.php', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          const member = data.data;
+          document.getElementById('memberId').value = member.id;
+          document.getElementById('name').value = member.name;
+          document.getElementById('student_id').value = member.student_id;
+          document.getElementById('department').value = member.department;
+          document.getElementById('year_level').value = member.year_level;
+          document.getElementById('position').value = member.position;
+          document.getElementById('status').value = member.status;
+          document.getElementById('email').value = member.email;
+          document.getElementById('contact_number').value = member.contact_number;
+          
+          document.getElementById('memberModalLabel').textContent = 'Edit Member';
+          new bootstrap.Modal(document.getElementById('memberModal')).show();
+        } else {
+          alert(data.message);
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred while loading member data.');
+      });
+    }
+</script>
+<style>
     .calendar-day.other-month {
       color: #ccc;
     }
@@ -709,6 +751,6 @@
       color: white;
       font-weight: bold;
     }
-  </style>
+</style>
 </body>
 </html>

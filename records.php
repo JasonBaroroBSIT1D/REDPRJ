@@ -1,43 +1,38 @@
 <?php
-require_once 'patient_records.php';
+require_once 'config/db_connect.php';
 
 // Handle form submissions
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['action'])) {
         switch ($_POST['action']) {
             case 'add_record':
-                // First add the patient if they don't exist
-                $patient_id = addPatient(
-                    $_POST['studentId'],
+                $stmt = $pdo->prepare("INSERT INTO patient_records (patient_name, student_id, visit_date, department, reason_visit, treatment, notes) VALUES (?, ?, ?, ?, ?, ?, ?)");
+                $stmt->execute([
                     $_POST['patientName'],
-                    $_POST['department']
-                );
-                
-                if ($patient_id) {
-                    // Then add the patient record
-                    addPatientRecord(
-                        $patient_id,
-                        $_POST['visitDate'],
-                        $_POST['visitTime'],
-                        $_POST['reasonVisit'],
-                        $_POST['treatment'],
-                        $_POST['notes'] ?? null
-                    );
-                }
+                    $_POST['studentId'],
+                    $_POST['visitDate'],
+                    $_POST['department'],
+                    $_POST['reasonVisit'],
+                    $_POST['treatment'],
+                    $_POST['notes']
+                ]);
+                header('Location: records.php');
+                exit;
                 break;
-                
+
             case 'delete_record':
-                if (isset($_POST['record_id'])) {
-                    deletePatientRecord($_POST['record_id']);
-                }
+                $stmt = $pdo->prepare("DELETE FROM patient_records WHERE id = ?");
+                $stmt->execute([$_POST['record_id']]);
+                header('Location: records.php');
+                exit;
                 break;
         }
     }
 }
 
-// Get all records for display
-$records = getAllPatientRecords();
-$common_issues = getCommonIssues();
+// Fetch all records
+$stmt = $pdo->query("SELECT * FROM patient_records ORDER BY visit_date DESC");
+$records = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -128,9 +123,20 @@ $common_issues = getCommonIssues();
           <div class="card mb-4">
             <div class="card-header d-flex justify-content-between align-items-center">
               <h2 class="mb-0">Patient Visit Records</h2>
-              <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#addRecordModal">
-                <i class="bi bi-plus-circle me-2"></i>Add New Record
-              </button>
+              <div class="d-flex gap-2">
+                <div class="dropdown">
+                  <button class="btn btn-secondary dropdown-toggle" type="button" id="exportDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-download me-2"></i>Export
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="exportDropdown">
+                    <li><a class="dropdown-item" href="export.php?format=csv"><i class="bi bi-file-earmark-spreadsheet me-2"></i>Export as CSV</a></li>
+                    <li><a class="dropdown-item" href="export.php?format=pdf"><i class="bi bi-file-earmark-pdf me-2"></i>Export as PDF</a></li>
+                  </ul>
+                </div>
+                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#addRecordModal">
+                  <i class="bi bi-plus-circle me-2"></i>Add New Record
+                </button>
+              </div>
             </div>
             <div class="card-body">
               <div class="table-responsive">
@@ -139,28 +145,30 @@ $common_issues = getCommonIssues();
                     <tr>
                       <th>ID</th>
                       <th>Patient Name</th>
+                      <th>Student ID</th>
                       <th>Visit Date</th>
+                      <th>Department</th>
                       <th>Reason for Visit</th>
-                      <th>Treatment</th>
                       <th>Actions</th>
                     </tr>
                   </thead>
                   <tbody>
                     <?php foreach ($records as $record): ?>
                     <tr>
-                        <td><?php echo htmlspecialchars($record['id']); ?></td>
-                        <td><?php echo htmlspecialchars($record['full_name']); ?></td>
-                        <td><?php echo htmlspecialchars($record['visit_date']); ?></td>
-                        <td><?php echo htmlspecialchars($record['reason_for_visit']); ?></td>
-                        <td><?php echo htmlspecialchars($record['treatment']); ?></td>
-                        <td>
-                            <button class="btn btn-sm btn-primary" onclick="viewRecord(<?php echo $record['id']; ?>)">
-                                <i class="bi bi-eye"></i>
-                            </button>
-                            <button class="btn btn-sm btn-danger" onclick="deleteRecord(<?php echo $record['id']; ?>)">
-                                <i class="bi bi-trash"></i>
-                            </button>
-                        </td>
+                      <td><?php echo htmlspecialchars($record['id']); ?></td>
+                      <td><?php echo htmlspecialchars($record['patient_name']); ?></td>
+                      <td><?php echo htmlspecialchars($record['student_id']); ?></td>
+                      <td><?php echo htmlspecialchars($record['visit_date']); ?></td>
+                      <td><?php echo htmlspecialchars($record['department']); ?></td>
+                      <td><?php echo htmlspecialchars($record['reason_visit']); ?></td>
+                      <td>
+                        <button class="btn btn-sm btn-primary" onclick="viewRecord(<?php echo $record['id']; ?>)">
+                          <i class="bi bi-eye"></i>
+                        </button>
+                        <button class="btn btn-sm btn-danger" onclick="deleteRecord(<?php echo $record['id']; ?>)">
+                          <i class="bi bi-trash"></i>
+                        </button>
+                      </td>
                     </tr>
                     <?php endforeach; ?>
                   </tbody>
@@ -204,7 +212,7 @@ $common_issues = getCommonIssues();
 
   <!-- Add Record Modal -->
   <dialog class="modal fade" id="addRecordModal" tabindex="-1" aria-labelledby="addRecordModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog">
       <div class="modal-content">
         <header class="modal-header">
           <h2 id="addRecordModalLabel">Add New Patient Record</h2>
@@ -213,25 +221,17 @@ $common_issues = getCommonIssues();
         <section class="modal-body">
           <form id="addRecordForm" method="POST" action="">
             <input type="hidden" name="action" value="add_record">
-            <div class="row mb-3">
-              <div class="col-md-6">
-                <label for="patientName" class="form-label">Patient Name</label>
-                <input type="text" class="form-control" id="patientName" name="patientName" required>
-              </div>
-              <div class="col-md-6">
-                <label for="studentId" class="form-label">Student ID</label>
-                <input type="text" class="form-control" id="studentId" name="studentId" required>
-              </div>
+            <div class="mb-3">
+              <label for="patientName" class="form-label">Patient Name</label>
+              <input type="text" class="form-control" id="patientName" name="patientName" required>
             </div>
-            <div class="row mb-3">
-              <div class="col-md-6">
-                <label for="visitDate" class="form-label">Visit Date</label>
-                <input type="date" class="form-control" id="visitDate" name="visitDate" required>
-              </div>
-              <div class="col-md-6">
-                <label for="visitTime" class="form-label">Visit Time</label>
-                <input type="time" class="form-control" id="visitTime" name="visitTime" required>
-              </div>
+            <div class="mb-3">
+              <label for="studentId" class="form-label">Student ID</label>
+              <input type="text" class="form-control" id="studentId" name="studentId" required>
+            </div>
+            <div class="mb-3">
+              <label for="visitDate" class="form-label">Visit Date</label>
+              <input type="date" class="form-control" id="visitDate" name="visitDate" required>
             </div>
             <div class="mb-3">
               <label for="department" class="form-label">Department</label>
@@ -246,17 +246,15 @@ $common_issues = getCommonIssues();
             </div>
             <div class="mb-3">
               <label for="reasonVisit" class="form-label">Reason for Visit</label>
-              <select class="form-select" id="reasonVisit" name="reasonVisit" required>
-                <option value="" selected disabled>Select Reason</option>
-              </select>
+              <input type="text" class="form-control" id="reasonVisit" name="reasonVisit" required>
             </div>
             <div class="mb-3">
-              <label for="treatment" class="form-label">Treatment/Action Taken</label>
+              <label for="treatment" class="form-label">Treatment</label>
               <textarea class="form-control" id="treatment" name="treatment" rows="2" required></textarea>
             </div>
             <div class="mb-3">
               <label for="notes" class="form-label">Additional Notes</label>
-              <textarea class="form-control" id="notes" name="notes" rows="3"></textarea>
+              <textarea class="form-control" id="notes" name="notes" rows="2"></textarea>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -382,7 +380,6 @@ $common_issues = getCommonIssues();
     });
 
     function viewRecord(id) {
-        // Implement view record functionality
         window.location.href = `view_record.php?id=${id}`;
     }
 
@@ -398,70 +395,6 @@ $common_issues = getCommonIssues();
             form.submit();
         }
     }
-
-    // Add common issues to the reason for visit dropdown
-    document.addEventListener('DOMContentLoaded', function() {
-        const reasonVisitSelect = document.getElementById('reasonVisit');
-        const commonIssues = <?php echo json_encode($common_issues); ?>;
-        
-        commonIssues.forEach(issue => {
-            const option = document.createElement('option');
-            option.value = issue.issue_name;
-            option.textContent = issue.issue_name;
-            reasonVisitSelect.appendChild(option);
-        });
-    });
-
-    // Handle form submission
-    const addRecordForm = document.getElementById('addRecordForm');
-    if (addRecordForm) {
-        addRecordForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Get the form data
-            const formData = new FormData(this);
-            
-            // Submit the form using fetch
-            fetch(window.location.href, {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => {
-                if (response.ok) {
-                    // Close the modal
-                    const modal = bootstrap.Modal.getInstance(document.getElementById('addRecordModal'));
-                    modal.hide();
-                    
-                    // Reload the page to show the new record
-                    window.location.reload();
-                } else {
-                    alert('Error saving record. Please try again.');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Error saving record. Please try again.');
-            });
-        });
-    }
-
-    // Add event listener for reason selection to auto-fill treatment
-    const reasonVisitSelect = document.getElementById('reasonVisit');
-    const commonIssues = <?php echo json_encode($common_issues); ?>;
-    
-    commonIssues.forEach(issue => {
-        const option = document.createElement('option');
-        option.value = issue.issue_name;
-        option.textContent = issue.issue_name;
-        reasonVisitSelect.appendChild(option);
-    });
-
-    reasonVisitSelect.addEventListener('change', function() {
-        const selectedIssue = commonIssues.find(issue => issue.issue_name === this.value);
-        if (selectedIssue) {
-            document.getElementById('treatment').value = selectedIssue.treatment_guidelines;
-        }
-    });
   </script>
   <style>
     .calendar-day.other-month {
