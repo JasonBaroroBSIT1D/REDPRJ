@@ -18,14 +18,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 ]);
                 header('Location: records.php');
                 exit;
-                break;
+               
 
             case 'delete_record':
                 $stmt = $pdo->prepare("DELETE FROM patient_records WHERE id = ?");
                 $stmt->execute([$_POST['record_id']]);
                 header('Location: records.php');
                 exit;
-                break;
+                
         }
     }
 }

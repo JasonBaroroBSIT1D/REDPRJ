@@ -95,36 +95,8 @@
               </div>
             </div>
             <div class="card-body">
-              <div class="row mb-3">
-                <div class="col-md-6">
-                  <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search members...">
-                    <button class="btn btn-outline-secondary" type="button">
-                      <i class="bi bi-search"></i>
-                    </button>
-                  </div>
-                </div>
-                <div class="col-md-3">
-                  <select class="form-select">
-                    <option selected>All Departments</option>
-                    <option>BSIT</option>
-                    <option>BTLED-IA</option>
-                    <option>BTLED-HE</option>
-                    <option>BTLED-ICT</option>
-                    <option>BFPT</option>
-                  </select>
-                </div>
-                <div class="col-md-3">
-                  <select class="form-select">
-                    <option selected>All Status</option>
-                    <option>Active</option>
-                    <option>Inactive</option>
-                  </select>
-                </div>
-              </div>
-              
               <div class="table-responsive">
-                <table class="table table-striped table-hover">
+                <table class="table table-striped">
                   <thead>
                     <tr>
                       <th>ID</th>
@@ -132,23 +104,15 @@
                       <th>Student ID</th>
                       <th>Department</th>
                       <th>Year Level</th>
-                      <th>Position</th>
                       <th>Status</th>
                       <th>Actions</th>
                     </tr>
                   </thead>
                   <tbody id="membersTableBody">
-                    <!-- Members will be dynamically added here -->
+                    <!-- Members will be loaded here -->
                   </tbody>
                 </table>
               </div>
-            </div>
-            <div class="card-footer">
-              <nav aria-label="Page navigation">
-                <ul class="pagination justify-content-center" id="pagination">
-                  <!-- Pagination will be dynamically added here -->
-                </ul>
-              </nav>
             </div>
           </div>
         </section>
@@ -174,107 +138,74 @@
               <div class="calendar-day header">Sat</div>
             </section>
           </section>
-          
-         
-      </aside>
-    </section>
-  </main>
+        </aside>
+      </section>
+    </main>
   
-  <footer>
-    &copy; 2025 BSIT2A. All rights reserved.
-  </footer>
-</section>
+    <footer>
+      &copy; 2025 BSIT2A. All rights reserved.
+    </footer>
+  </section>
 
-<!-- Add/Edit Member Modal -->
-<div class="modal fade" id="memberModal" tabindex="-1" aria-labelledby="memberModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="memberModalLabel">Add New Member</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form id="memberForm">
-          <input type="hidden" id="memberId" name="id">
-          <div class="mb-3">
-            <label for="name" class="form-label">Full Name</label>
-            <input type="text" class="form-control" id="name" name="name" required>
-          </div>
-          <div class="mb-3">
-            <label for="student_id" class="form-label">Student ID</label>
-            <input type="text" class="form-control" id="student_id" name="student_id" required>
-          </div>
-          <div class="mb-3">
-            <label for="department" class="form-label">Department</label>
-            <select class="form-select" id="department" name="department" required>
-              <option value="">Select Department</option>
-              <option value="BSIT">BSIT</option>
-              <option value="BTLED-IA">BTLED-IA</option>
-              <option value="BTLED-HE">BTLED-HE</option>
-              <option value="BTLED-ICT">BTLED-ICT</option>
-              <option value="BFPT">BFPT</option>
-            </select>
-          </div>
-          <div class="mb-3">
-            <label for="year_level" class="form-label">Year Level</label>
-            <select class="form-select" id="year_level" name="year_level" required>
-              <option value="">Select Year Level</option>
-              <option value="1st Year">1st Year</option>
-              <option value="2nd Year">2nd Year</option>
-              <option value="3rd Year">3rd Year</option>
-              <option value="4th Year">4th Year</option>
-            </select>
-          </div>
-          <div class="mb-3">
-            <label for="position" class="form-label">Position</label>
-            <input type="text" class="form-control" id="position" name="position">
-          </div>
-          <div class="mb-3">
-            <label for="status" class="form-label">Status</label>
-            <select class="form-select" id="status" name="status" required>
-              <option value="Active">Active</option>
-              <option value="Inactive">Inactive</option>
-            </select>
-          </div>
-          <div class="mb-3">
-            <label for="email" class="form-label">Email</label>
-            <input type="email" class="form-control" id="email" name="email">
-          </div>
-          <div class="mb-3">
-            <label for="contact_number" class="form-label">Contact Number</label>
-            <input type="text" class="form-control" id="contact_number" name="contact_number">
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" id="saveMember">Save Member</button>
+  <!-- Add/Edit Member Modal -->
+  <div class="modal fade" id="memberModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalTitle">Add New Member</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form id="memberForm">
+            <input type="hidden" id="memberId" name="id">
+            <div class="mb-3">
+              <label class="form-label">Name</label>
+              <input type="text" class="form-control" name="name" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Student ID</label>
+              <input type="text" class="form-control" name="student_id" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Department</label>
+              <select class="form-select" name="department" required>
+                <option value="">Select Department</option>
+                <option value="BSIT">BSIT</option>
+                <option value="BTLED-IA">BTLED-IA</option>
+                <option value="BTLED-HE">BTLED-HE</option>
+                <option value="BTLED-ICT">BTLED-ICT</option>
+                <option value="BFPT">BFPT</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Year Level</label>
+              <select class="form-select" name="year_level" required>
+                <option value="">Select Year Level</option>
+                <option value="1st Year">1st Year</option>
+                <option value="2nd Year">2nd Year</option>
+                <option value="3rd Year">3rd Year</option>
+                <option value="4th Year">4th Year</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Status</label>
+              <select class="form-select" name="status" required>
+                <option value="Active">Active</option>
+                <option value="Inactive">Inactive</option>
+              </select>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="saveMember">Save</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<!-- Delete Confirmation Modal -->
-<div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Confirm Delete</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        Are you sure you want to delete this member?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-danger" id="confirmDelete">Delete</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
     document.getElementById('toggleSidebar').addEventListener('click', function() {
       document.getElementById('sidebar').classList.toggle('active');
     });
@@ -384,260 +315,145 @@
       new Calendar();
     });
 
-    document.addEventListener('DOMContentLoaded', function() {
-        // Load members on page load
+    // Member CRUD Operations
+    let currentMemberId = null;
+
+    // Load members on page load
+    document.addEventListener('DOMContentLoaded', () => {
         loadMembers();
+        new Calendar();
+    });
 
-        // Search functionality
-        const searchInput = document.querySelector('input[placeholder="Search members..."]');
-        searchInput.addEventListener('input', debounce(loadMembers, 500));
-
-        // Department filter
-        const departmentSelect = document.querySelector('select:nth-of-type(1)');
-        departmentSelect.addEventListener('change', loadMembers);
-
-        // Status filter
-        const statusSelect = document.querySelector('select:nth-of-type(2)');
-        statusSelect.addEventListener('change', loadMembers);
-
-        // Add member button click handler
-        document.querySelector('[data-bs-target="#memberModal"]').addEventListener('click', function() {
-            document.getElementById('memberForm').reset();
-            document.getElementById('memberId').value = '';
-            document.getElementById('memberModalLabel').textContent = 'Add New Member';
-        });
-
-        // Save member button click handler
-        document.getElementById('saveMember').addEventListener('click', function() {
-            const form = document.getElementById('memberForm');
-            if (!form.checkValidity()) {
-                form.reportValidity();
-                return;
-            }
-
-            const formData = new FormData(form);
-            const action = formData.get('id') ? 'update' : 'create';
-            formData.append('action', action);
-
-            fetch('handlers/member_operations.php', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    const modal = bootstrap.Modal.getInstance(document.getElementById('memberModal'));
-                    modal.hide();
-                    form.reset();
-                    loadMembers();
+    function loadMembers() {
+        fetch('handlers/member_handler.php')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
                 }
-                alert(data.message);
+                return response.json();
+            })
+            .then(members => {
+                const tbody = document.getElementById('membersTableBody');
+                tbody.innerHTML = '';
+                members.forEach(member => {
+                    tbody.innerHTML += `
+                        <tr>
+                            <td>${member.id}</td>
+                            <td>${member.name}</td>
+                            <td>${member.student_id}</td>
+                            <td>${member.department}</td>
+                            <td>${member.year_level}</td>
+                            <td><span class="badge ${member.status === 'Active' ? 'bg-success' : 'bg-danger'}">${member.status}</span></td>
+                            <td>
+                                <button class="btn btn-sm btn-primary" onclick="editMember(${JSON.stringify(member).replace(/"/g, '&quot;')})">
+                                    <i class="bi bi-pencil"></i>
+                                </button>
+                                <button class="btn btn-sm btn-danger" onclick="deleteMember(${member.id})">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    `;
+                });
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert('An error occurred while saving the member.');
+                alert('Failed to load members. Please try again.');
             });
-        });
+    }
 
-        // Delete member confirmation handler
-        document.getElementById('confirmDelete').addEventListener('click', function() {
-            const memberId = this.dataset.memberId;
-            if (memberId) {
-                const formData = new FormData();
-                formData.append('action', 'delete');
-                formData.append('id', memberId);
+    function editMember(member) {
+        currentMemberId = member.id;
+        document.getElementById('modalTitle').textContent = 'Edit Member';
+        const form = document.getElementById('memberForm');
+        form.name.value = member.name;
+        form.student_id.value = member.student_id;
+        form.department.value = member.department;
+        form.year_level.value = member.year_level;
+        form.status.value = member.status;
+        new bootstrap.Modal(document.getElementById('memberModal')).show();
+    }
 
-                fetch('handlers/member_operations.php', {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        const modal = bootstrap.Modal.getInstance(document.getElementById('deleteModal'));
-                        modal.hide();
-                        loadMembers();
-                    }
-                    alert(data.message);
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('An error occurred while deleting the member.');
-                });
+    function deleteMember(id) {
+        if (confirm('Are you sure you want to delete this member?')) {
+            fetch(`handlers/member_handler.php?id=${id}`, {
+                method: 'DELETE'
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.success) {
+                    loadMembers();
+                    alert('Member deleted successfully');
+                } else {
+                    throw new Error(data.error || 'Failed to delete member');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Failed to delete member. Please try again.');
+            });
+        }
+    }
+
+    document.getElementById('saveMember').addEventListener('click', () => {
+        const form = document.getElementById('memberForm');
+        const formData = {
+            name: form.name.value,
+            student_id: form.student_id.value,
+            department: form.department.value,
+            year_level: form.year_level.value,
+            status: form.status.value
+        };
+
+        const method = currentMemberId ? 'PUT' : 'POST';
+        if (currentMemberId) {
+            formData.id = currentMemberId;
+        }
+
+        fetch('handlers/member_handler.php', {
+            method: method,
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
             }
+            return response.json();
+        })
+        .then(data => {
+            if (data.success) {
+                bootstrap.Modal.getInstance(document.getElementById('memberModal')).hide();
+                form.reset();
+                currentMemberId = null;
+                loadMembers();
+                alert(currentMemberId ? 'Member updated successfully' : 'Member added successfully');
+            } else {
+                throw new Error(data.error || 'Failed to save member');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert(error.message || 'Failed to save member. Please try again.');
         });
     });
 
-    function debounce(func, wait) {
-        let timeout;
-        return function executedFunction(...args) {
-            const later = () => {
-                clearTimeout(timeout);
-                func(...args);
-            };
-            clearTimeout(timeout);
-            timeout = setTimeout(later, wait);
-        };
-    }
+    // Reset form when modal is closed
+    document.getElementById('memberModal').addEventListener('hidden.bs.modal', () => {
+        document.getElementById('memberForm').reset();
+        document.getElementById('modalTitle').textContent = 'Add New Member';
+        currentMemberId = null;
+    });
+  </script>
 
-    // Global variables
-    let currentPage = 1;
-    const itemsPerPage = 10;
-    let members = [];
-    let memberToDelete = null;
-
-    // Load members
-    function loadMembers() {
-      const formData = new FormData();
-      formData.append('action', 'getAll');
-
-      fetch('handlers/member_operations.php', {
-        method: 'POST',
-        body: formData
-      })
-      .then(response => response.json())
-      .then(data => {
-        if (data.success) {
-          displayMembers(data.data);
-        } else {
-          alert(data.message);
-        }
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        alert('An error occurred while loading members.');
-      });
-    }
-
-    // Display members in table
-    function displayMembers(members) {
-      const tbody = document.getElementById('membersTableBody');
-      tbody.innerHTML = '';
-      
-      members.forEach(member => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-          <td>${member.id}</td>
-          <td>${member.name}</td>
-          <td>${member.student_id}</td>
-          <td>${member.department}</td>
-          <td>${member.year_level}</td>
-          <td>${member.position || '-'}</td>
-          <td><span class="badge ${member.status === 'Active' ? 'bg-success' : 'bg-danger'}">${member.status}</span></td>
-          <td>
-            <button class="btn btn-sm btn-primary edit-member" data-id="${member.id}">
-              <i class="bi bi-pencil"></i>
-            </button>
-            <button class="btn btn-sm btn-danger delete-member" data-id="${member.id}">
-              <i class="bi bi-trash"></i>
-            </button>
-          </td>
-        `;
-        tbody.appendChild(tr);
-      });
-
-      setupEventListeners();
-      updatePagination();
-    }
-
-    // Update pagination
-    function updatePagination() {
-      const totalPages = Math.ceil(members.length / itemsPerPage);
-      const pagination = document.getElementById('pagination');
-      pagination.innerHTML = '';
-
-      // Previous button
-      pagination.innerHTML += `
-        <li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
-          <a class="page-link" href="#" data-page="${currentPage - 1}">Previous</a>
-        </li>
-      `;
-
-      // Page numbers
-      for (let i = 1; i <= totalPages; i++) {
-        pagination.innerHTML += `
-          <li class="page-item ${currentPage === i ? 'active' : ''}">
-            <a class="page-link" href="#" data-page="${i}">${i}</a>
-          </li>
-        `;
-      }
-
-      // Next button
-      pagination.innerHTML += `
-        <li class="page-item ${currentPage === totalPages ? 'disabled' : ''}">
-          <a class="page-link" href="#" data-page="${currentPage + 1}">Next</a>
-        </li>
-      `;
-
-      // Add click event listeners to pagination
-      document.querySelectorAll('.page-link').forEach(link => {
-        link.addEventListener('click', (e) => {
-          e.preventDefault();
-          const page = parseInt(e.target.dataset.page);
-          if (page && page !== currentPage) {
-            currentPage = page;
-            displayMembers();
-          }
-        });
-      });
-    }
-
-    // Setup event listeners
-    function setupEventListeners() {
-      // Edit member buttons
-      document.querySelectorAll('.edit-member').forEach(button => {
-        button.addEventListener('click', () => {
-          const id = button.dataset.id;
-          loadMemberForEdit(id);
-        });
-      });
-
-      // Delete member buttons
-      document.querySelectorAll('.delete-member').forEach(button => {
-        button.addEventListener('click', () => {
-          memberToDelete = button.dataset.id;
-          new bootstrap.Modal(document.getElementById('deleteModal')).show();
-        });
-      });
-    }
-
-    // Load member data for editing
-    function loadMemberForEdit(memberId) {
-      const formData = new FormData();
-      formData.append('action', 'get');
-      formData.append('id', memberId);
-
-      fetch('handlers/member_operations.php', {
-        method: 'POST',
-        body: formData
-      })
-      .then(response => response.json())
-      .then(data => {
-        if (data.success) {
-          const member = data.data;
-          document.getElementById('memberId').value = member.id;
-          document.getElementById('name').value = member.name;
-          document.getElementById('student_id').value = member.student_id;
-          document.getElementById('department').value = member.department;
-          document.getElementById('year_level').value = member.year_level;
-          document.getElementById('position').value = member.position;
-          document.getElementById('status').value = member.status;
-          document.getElementById('email').value = member.email;
-          document.getElementById('contact_number').value = member.contact_number;
-          
-          document.getElementById('memberModalLabel').textContent = 'Edit Member';
-          new bootstrap.Modal(document.getElementById('memberModal')).show();
-        } else {
-          alert(data.message);
-        }
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        alert('An error occurred while loading member data.');
-      });
-    }
-</script>
-<style>
+  <style>
     .calendar-day.other-month {
       color: #ccc;
     }
@@ -751,6 +567,6 @@
       color: white;
       font-weight: bold;
     }
-</style>
+  </style>
 </body>
 </html>
