@@ -35,7 +35,7 @@
       <a href="report.php">
         <i class="bi bi-file-earmark-text-fill"></i> Reports
       </a>
-      <a href="feedback.php"  class="active">
+      <a href="feedback.php" class="active">
         <i class="bi bi-chat-square-text-fill"></i> View Feedbacks
       </a>
     </nav>
@@ -83,11 +83,12 @@
       
       <section class="content-columns">
         <section class="main-column">
+          <!-- Feedback List -->
           <div class="card mb-4">
             <div class="card-header d-flex justify-content-between align-items-center">
               <h2 class="mb-0">Feedback Submissions</h2>
               <div>
-                <button class="btn btn-outline-primary me-2">
+                <button class="btn btn-outline-primary me-2" onclick="exportFeedback()">
                   <i class="bi bi-download me-1"></i>Export Report
                 </button>
               </div>
@@ -96,29 +97,29 @@
               <div class="row mb-3">
                 <div class="col-md-6">
                   <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search feedback...">
-                    <button class="btn btn-outline-secondary" type="button">
+                    <input type="text" class="form-control" id="searchFeedback" placeholder="Search feedback...">
+                    <button class="btn btn-outline-secondary" type="button" onclick="searchFeedback()">
                       <i class="bi bi-search"></i>
                     </button>
                   </div>
                 </div>
                 <div class="col-md-3">
-                  <select class="form-select">
-                    <option selected>All Categories</option>
-                    <option>General Service</option>
-                    <option>First Aid</option>
-                    <option>Event Support</option>
-                    <option>Training</option>
+                  <select class="form-select" id="categoryFilter" onchange="filterFeedback()">
+                    <option value="">All Categories</option>
+                    <option value="General Service">General Service</option>
+                    <option value="First Aid">First Aid</option>
+                    <option value="Event Support">Event Support</option>
+                    <option value="Training">Training</option>
                   </select>
                 </div>
                 <div class="col-md-3">
-                  <select class="form-select">
-                    <option selected>All Ratings</option>
-                    <option>5 Stars</option>
-                    <option>4 Stars</option>
-                    <option>3 Stars</option>
-                    <option>2 Stars</option>
-                    <option>1 Star</option>
+                  <select class="form-select" id="ratingFilter" onchange="filterFeedback()">
+                    <option value="">All Ratings</option>
+                    <option value="5">5 Stars</option>
+                    <option value="4">4 Stars</option>
+                    <option value="3">3 Stars</option>
+                    <option value="2">2 Stars</option>
+                    <option value="1">1 Star</option>
                   </select>
                 </div>
               </div>
@@ -136,251 +137,10 @@
                       <th>Actions</th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr>
-                      <td>FB-001</td>
-                      <td>Juan Dela Cruz</td>
-                      <td>BSIT</td>
-                      <td>First Aid</td>
-                      <td>
-                        <div class="text-warning">
-                          <i class="bi bi-star-fill"></i>
-                          <i class="bi bi-star-fill"></i>
-                          <i class="bi bi-star-fill"></i>
-                          <i class="bi bi-star-fill"></i>
-                          <i class="bi bi-star"></i>
-                        </div>
-                      </td>
-                      <td>April 18, 2025</td>
-                      <td>
-                        <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#viewFeedbackModal1">
-                          <i class="bi bi-eye"></i>
-                        </button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>FB-002</td>
-                      <td>Maria Santos</td>
-                      <td>BTLED-HE</td>
-                      <td>Training</td>
-                      <td>
-                        <div class="text-warning">
-                          <i class="bi bi-star-fill"></i>
-                          <i class="bi bi-star-fill"></i>
-                          <i class="bi bi-star-fill"></i>
-                          <i class="bi bi-star-fill"></i>
-                          <i class="bi bi-star-fill"></i>
-                        </div>
-                      </td>
-                      <td>April 15, 2025</td>
-                      <td>
-                        <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#viewFeedbackModal2">
-                          <i class="bi bi-eye"></i>
-                        </button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>FB-003</td>
-                      <td>Pedro Gonzales</td>
-                      <td>BTLED-ICT</td>
-                      <td>Event Support</td>
-                      <td>
-                        <div class="text-warning">
-                          <i class="bi bi-star-fill"></i>
-                          <i class="bi bi-star-fill"></i>
-                          <i class="bi bi-star-fill"></i>
-                          <i class="bi bi-star"></i>
-                          <i class="bi bi-star"></i>
-                        </div>
-                      </td>
-                      <td>April 12, 2025</td>
-                      <td>
-                        <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#viewFeedbackModal3">
-                          <i class="bi bi-eye"></i>
-                        </button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>FB-004</td>
-                      <td>Ana Cruz</td>
-                      <td>BFPT</td>
-                      <td>General Service</td>
-                      <td>
-                        <div class="text-warning">
-                          <i class="bi bi-star-fill"></i>
-                          <i class="bi bi-star-fill"></i>
-                          <i class="bi bi-star-fill"></i>
-                          <i class="bi bi-star-fill"></i>
-                          <i class="bi bi-star"></i>
-                        </div>
-                      </td>
-                      <td>April 10, 2025</td>
-                      <td>
-                        <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#viewFeedbackModal4">
-                          <i class="bi bi-eye"></i>
-                        </button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>FB-005</td>
-                      <td>Carlos Reyes</td>
-                      <td>BTLED-IA</td>
-                      <td>First Aid</td>
-                      <td>
-                        <div class="text-warning">
-                          <i class="bi bi-star-fill"></i>
-                          <i class="bi bi-star-fill"></i>
-                          <i class="bi bi-star"></i>
-                          <i class="bi bi-star"></i>
-                          <i class="bi bi-star"></i>
-                        </div>
-                      </td>
-                      <td>April 05, 2025</td>
-                      <td>
-                        <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#viewFeedbackModal5">
-                          <i class="bi bi-eye"></i>
-                        </button>
-                      </td>
-                    </tr>
+                  <tbody id="feedbackTableBody">
+                    <!-- Feedback entries will be loaded here -->
                   </tbody>
                 </table>
-              </div>
-            </div>
-            <div class="card-footer">
-              <nav aria-label="Page navigation">
-                <ul class="pagination justify-content-center">
-                  <li class="page-item disabled">
-                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                  </li>
-                  <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                  <li class="page-item"><a class="page-link" href="#">2</a></li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item">
-                    <a class="page-link" href="#">Next</a>
-                  </li>
-                </ul>
-              </nav>
-            </div>
-          </div>
-          
-          <div class="row">
-            <div class="col-md-6 mb-4">
-              <div class="card">
-                <div class="card-header">
-                  <h2>Feedback Statistics</h2>
-                </div>
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col-md-6 mb-3">
-                      <div class="p-3 bg-danger text-white rounded">
-                        <h3>45</h3>
-                        <p class="mb-0">Total Feedback</p>
-                      </div>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                      <div class="p-3 bg-success text-white rounded">
-                        <h3>4.2</h3>
-                        <p class="mb-0">Average Rating</p>
-                      </div>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                      <div class="p-3 bg-primary text-white rounded">
-                        <h3>12</h3>
-                        <p class="mb-0">This Month</p>
-                      </div>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                      <div class="p-3 bg-warning text-dark rounded">
-                        <h3>85%</h3>
-                        <p class="mb-0">Positive Rate</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-6 mb-4">
-              <div class="card">
-                <div class="card-header">
-                  <h2>Rating Distribution</h2>
-                </div>
-                <div class="card-body">
-                  <div class="mb-3">
-                    <div class="d-flex justify-content-between align-items-center mb-1">
-                      <div class="text-warning">
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                      </div>
-                      <span>15 (33%)</span>
-                    </div>
-                    <div class="progress">
-                      <div class="progress-bar bg-success" role="progressbar" style="width: 33%"></div>
-                    </div>
-                  </div>
-                  <div class="mb-3">
-                    <div class="d-flex justify-content-between align-items-center mb-1">
-                      <div class="text-warning">
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star"></i>
-                      </div>
-                      <span>20 (44%)</span>
-                    </div>
-                    <div class="progress">
-                      <div class="progress-bar bg-primary" role="progressbar" style="width: 44%"></div>
-                    </div>
-                  </div>
-                  <div class="mb-3">
-                    <div class="d-flex justify-content-between align-items-center mb-1">
-                      <div class="text-warning">
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star"></i>
-                        <i class="bi bi-star"></i>
-                      </div>
-                      <span>5 (11%)</span>
-                    </div>
-                    <div class="progress">
-                      <div class="progress-bar bg-info" role="progressbar" style="width: 11%"></div>
-                    </div>
-                  </div>
-                  <div class="mb-3">
-                    <div class="d-flex justify-content-between align-items-center mb-1">
-                      <div class="text-warning">
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star"></i>
-                        <i class="bi bi-star"></i>
-                        <i class="bi bi-star"></i>
-                      </div>
-                      <span>3 (7%)</span>
-                    </div>
-                    <div class="progress">
-                      <div class="progress-bar bg-warning" role="progressbar" style="width: 7%"></div>
-                    </div>
-                  </div>
-                  <div class="mb-3">
-                    <div class="d-flex justify-content-between align-items-center mb-1">
-                      <div class="text-warning">
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star"></i>
-                        <i class="bi bi-star"></i>
-                        <i class="bi bi-star"></i>
-                        <i class="bi bi-star"></i>
-                      </div>
-                      <span>2 (5%)</span>
-                    </div>
-                    <div class="progress">
-                      <div class="progress-bar bg-danger" role="progressbar" style="width: 5%"></div>
-                    </div>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
@@ -407,44 +167,6 @@
               <div class="calendar-day header">Sat</div>
             </section>
           </section>
-          
-          <div class="card mt-4">
-            <div class="card-header">
-              <h2>Recent Comments</h2>
-            </div>
-            <div class="card-body p-0">
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item">
-                  <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-1">Juan Dela Cruz</h5>
-                    <small class="text-muted">3 days ago</small>
-                  </div>
-                  <p class="mb-1">"The assistance provided was very prompt and professional. Thank you!"</p>
-                </li>
-                <li class="list-group-item">
-                  <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-1">Maria Santos</h5>
-                    <small class="text-muted">1 week ago</small>
-                  </div>
-                  <p class="mb-1">"The training was comprehensive and well-organized. Great job!"</p>
-                </li>
-                <li class="list-group-item">
-                  <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-1">Pedro Gonzales</h5>
-                    <small class="text-muted">1 week ago</small>
-                  </div>
-                  <p class="mb-1">"Service was good but could improve on response time."</p>
-                </li>
-                <li class="list-group-item">
-                  <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-1">Ana Cruz</h5>
-                    <small class="text-muted">2 weeks ago</small>
-                  </div>
-                  <p class="mb-1">"Volunteers were very helpful during the campus event."</p>
-                </li>
-              </ul>
-            </div>
-          </div>
         </aside>
       </section>
     </main>
@@ -454,101 +176,170 @@
     </footer>
   </section>
 
-  <!-- View Feedback Modal 1 -->
-  <dialog class="modal fade" id="viewFeedbackModal1" tabindex="-1" aria-labelledby="viewFeedbackModal1Label" aria-hidden="true">
+  <!-- View Feedback Modal -->
+  <div class="modal fade" id="viewFeedbackModal" tabindex="-1" aria-labelledby="viewFeedbackModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
-        <header class="modal-header">
-          <h2 id="viewFeedbackModal1Label">Feedback Details</h2>
+        <div class="modal-header">
+          <h5 class="modal-title" id="viewFeedbackModalLabel">Feedback Details</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </header>
-        <section class="modal-body">
+        </div>
+        <div class="modal-body">
           <div class="card">
             <div class="card-header bg-light">
               <div class="d-flex justify-content-between">
-                <span><strong>Feedback ID:</strong> FB-001</span>
-                <span><strong>Date:</strong> April 18, 2025</span>
+                <span><strong>Feedback ID:</strong> <span id="modalFeedbackId"></span></span>
+                <span><strong>Date:</strong> <span id="modalFeedbackDate"></span></span>
               </div>
             </div>
             <div class="card-body">
               <div class="row mb-3">
                 <div class="col-md-6">
-                  <p><strong>Submitter:</strong> Juan Dela Cruz</p>
-                  <p><strong>Department:</strong> BSIT</p>
-                  <p><strong>Contact:</strong> juan.delacruz@email.com</p>
+                  <p><strong>Submitter:</strong> <span id="modalSubmitter"></span></p>
+                  <p><strong>Department:</strong> <span id="modalDepartment"></span></p>
+                  <p><strong>Contact:</strong> <span id="modalEmail"></span></p>
                 </div>
                 <div class="col-md-6">
-                  <p><strong>Service Type:</strong> First Aid</p>
-                  <p><strong>Date of Service:</strong> April 17, 2025</p>
-                  <p><strong>Rating:</strong> 
-                    <span class="text-warning">
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star"></i>
-                    </span>
-                  </p>
+                  <p><strong>Service Type:</strong> <span id="modalServiceType"></span></p>
+                  <p><strong>Rating:</strong> <span id="modalRating"></span></p>
                 </div>
               </div>
               <hr>
               <div class="mb-3">
                 <h5>Comments:</h5>
-                <p>I received first aid treatment for a minor injury. The Red Cross Council staff was very professional and provided prompt assistance. The wound was cleaned and dressed properly. I appreciate their help and the follow-up they provided afterward. The only suggestion would be to have more staff available during peak hours.</p>
-              </div>
-              <hr>
-              <div class="mb-3">
-                <h5>Ratings by Category:</h5>
-                <div class="row">
-                  <div class="col-md-6">
-                    <p><strong>Response Time:</strong> 
-                      <span class="text-warning">
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star"></i>
-                      </span>
-                    </p>
-                    <p><strong>Staff Courtesy:
-                        <div class="card">
-                            <div class="card-body">
-                              <h5 class="card-title">Juan Dela Cruz</h5>
-                              <h6 class="card-subtitle mb-2 text-muted">First Aid - BSIT</h6>
-                              <p class="card-text mt-3">
-                                "The assistance provided was very prompt and professional. Thank you!"
-                              </p>
-                              <div class="text-warning">
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star"></i>
-                              </div>
-                              <p class="text-muted mt-2"><small>Submitted on: April 18, 2025</small></p>
-                            </div>
-                          </div>
-                        </section>
-                        <footer class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        </footer>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <p id="modalComments"></p>
               </div>
             </div>
           </div>
-        </section>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
       </div>
     </div>
-  </dialog>
+  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script>
     document.getElementById('toggleSidebar').addEventListener('click', function() {
       document.getElementById('sidebar').classList.toggle('active');
     });
+
+    // Load feedbacks when page loads
+    document.addEventListener('DOMContentLoaded', function() {
+        loadFeedbacks();
+    });
+
+    function loadFeedbacks() {
+        fetch('feedback_operations.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: 'action=get_feedbacks'
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                displayFeedbacks(data.data);
+            } else {
+                alert('Error loading feedbacks: ' + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Error loading feedbacks');
+        });
+    }
+
+    function displayFeedbacks(feedbacks) {
+        const tbody = document.getElementById('feedbackTableBody');
+        tbody.innerHTML = '';
+        
+        feedbacks.forEach(feedback => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>FB-${String(feedback.id).padStart(3, '0')}</td>
+                <td>${feedback.submitter_name}</td>
+                <td>${feedback.department}</td>
+                <td>${feedback.service_type}</td>
+                <td>${'★'.repeat(feedback.rating)}${'☆'.repeat(5-feedback.rating)}</td>
+                <td>${new Date(feedback.created_at).toLocaleDateString()}</td>
+                <td>
+                    <button class="btn btn-sm btn-info" onclick="viewFeedback(${feedback.id})">
+                        <i class="bi bi-eye"></i>
+                    </button>
+                </td>
+            `;
+            tbody.appendChild(row);
+        });
+    }
+
+    function viewFeedback(id) {
+        fetch('feedback_operations.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `action=get_feedback_details&id=${id}`
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                const feedback = data.data;
+                
+                // Update modal content
+                document.getElementById('modalFeedbackId').textContent = `FB-${String(feedback.id).padStart(3, '0')}`;
+                document.getElementById('modalSubmitter').textContent = feedback.submitter_name;
+                document.getElementById('modalDepartment').textContent = feedback.department;
+                document.getElementById('modalEmail').textContent = feedback.email;
+                document.getElementById('modalServiceType').textContent = feedback.service_type;
+                document.getElementById('modalRating').textContent = '★'.repeat(feedback.rating) + '☆'.repeat(5-feedback.rating);
+                document.getElementById('modalFeedbackDate').textContent = new Date(feedback.created_at).toLocaleDateString();
+                document.getElementById('modalComments').textContent = feedback.comments;
+
+                // Show the modal
+                const modal = new bootstrap.Modal(document.getElementById('viewFeedbackModal'));
+                modal.show();
+            } else {
+                alert('Error loading feedback details: ' + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Error loading feedback details');
+        });
+    }
+
+    function searchFeedback() {
+        const searchTerm = document.getElementById('searchFeedback').value.toLowerCase();
+        const rows = document.getElementById('feedbackTableBody').getElementsByTagName('tr');
+        
+        for (let row of rows) {
+            const text = row.textContent.toLowerCase();
+            row.style.display = text.includes(searchTerm) ? '' : 'none';
+        }
+    }
+
+    function filterFeedback() {
+        const category = document.getElementById('categoryFilter').value;
+        const rating = document.getElementById('ratingFilter').value;
+        const rows = document.getElementById('feedbackTableBody').getElementsByTagName('tr');
+        
+        for (let row of rows) {
+            const serviceType = row.cells[3].textContent;
+            const ratingStars = row.cells[4].textContent;
+            
+            const categoryMatch = !category || serviceType === category;
+            const ratingMatch = !rating || ratingStars.includes('★'.repeat(parseInt(rating)));
+            
+            row.style.display = categoryMatch && ratingMatch ? '' : 'none';
+        }
+    }
+
+    function exportFeedback() {
+        window.location.href = 'export_feedback.php';
+    }
 
     // Calendar functionality
     class Calendar {
