@@ -86,14 +86,16 @@ if (!isset($_SESSION['username'])) {
           </li>
         </ul>
       </div>
-    </header>
-
-    <main>
-      <section class="welcome-banner">
-        <h2>WELCOME, RED CROSS COUNCIL</h2>
-      </section>
       
-      <section class="feature-grid">
+    </header>
+  
+   
+    <main>
+    <div class="hero-banner text-center mb-4">
+      <h1 class="hero-title mt-3">Welcome to the Philippine Red Cross USTP Council Dashboard</h1>
+      <p class="hero-subtitle">Humanity. Neutrality. Impartiality. Independence. Voluntary Service. Unity. Universality.</p>
+    </div>
+     <section class="feature-grid">
         <a href="event.php" class="feature-item" style="background-color: #dc3545;">
           <i class="bi bi-calendar-event"></i>
           <span>Upcoming Events</span>
@@ -124,18 +126,22 @@ if (!isset($_SESSION['username'])) {
         <section class="main-column">
           <article>
             <h2>ANNOUNCEMENT</h2>
-            <ul>
-              <li>MEETING</li>
-              <li>URGENT MEETING</li>
-            </ul>
+            <div id="announcementsList" class="list-group">
+              <!-- Announcements will be loaded here -->
+            </div>
+            <div class="text-end mt-2">
+              <a href="annoucement.php" class="btn btn-sm btn-outline-danger">View All Announcements</a>
+            </div>
           </article>
           
           <article>
             <h2>UPCOMING EVENTS</h2>
-            <ul>
-              <li>MEETING</li>
-              <li>URGENT MEETING</li>
-            </ul>
+            <div id="eventsList" class="list-group">
+              <!-- Events will be loaded here -->
+            </div>
+            <div class="text-end mt-2">
+              <a href="event.php" class="btn btn-sm btn-outline-danger">View All Events</a>
+            </div>
           </article>
         </section>
         
@@ -213,6 +219,99 @@ if (!isset($_SESSION['username'])) {
   <script>
     document.getElementById('toggleSidebar').addEventListener('click', function() {
       document.getElementById('sidebar').classList.toggle('active');
+    });
+
+    // Load announcements
+    function loadAnnouncements() {
+      fetch('handlers/announcement_handler.php?action=get_all')
+        .then(response => response.json())
+        .then(data => {
+          if (data.status === 'success') {
+            const container = document.getElementById('announcementsList');
+            container.innerHTML = '';
+            
+            // Only show the first 5 announcements
+            data.data.slice(0, 5).forEach(announcement => {
+              const urgencyClass = {
+                'high': 'danger',
+                'medium': 'warning',
+                'low': 'info'
+              }[announcement.urgency];
+
+              const urgencyText = {
+                'high': 'Urgent',
+                'medium': 'Important',
+                'low': 'Normal'
+              }[announcement.urgency];
+
+              const item = document.createElement('a');
+              item.href = 'annoucement.php';
+              item.className = 'list-group-item list-group-item-action d-flex justify-content-between align-items-center';
+              item.innerHTML = `
+                <div>
+                  <h6 class="mb-1">${announcement.title}</h6>
+                  <small class="text-muted">Posted: ${new Date(announcement.created_at).toLocaleDateString()}</small>
+                </div>
+                <span class="badge bg-${urgencyClass} rounded-pill">${urgencyText}</span>
+              `;
+              container.appendChild(item);
+            });
+          }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+
+    // Load events
+    function loadEvents() {
+      fetch('event_operations.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: 'action=get_events'
+      })
+      .then(response => response.json())
+      .then(events => {
+        const container = document.getElementById('eventsList');
+        container.innerHTML = '';
+        
+        // Only show the first 5 events
+        events.slice(0, 5).forEach(event => {
+          const statusClass = {
+            'approved': 'success',
+            'pending': 'warning',
+            'cancelled': 'danger'
+          }[event.status];
+
+          const statusText = {
+            'approved': 'Approved',
+            'pending': 'Pending',
+            'cancelled': 'Cancelled'
+          }[event.status];
+
+          const item = document.createElement('a');
+          item.href = 'event.php';
+          item.className = 'list-group-item list-group-item-action d-flex justify-content-between align-items-center';
+          item.innerHTML = `
+            <div>
+              <h6 class="mb-1">${event.title}</h6>
+              <small class="text-muted">
+                <i class="bi bi-calendar-event"></i> ${event.event_date} | 
+                <i class="bi bi-clock"></i> ${event.start_time}
+              </small>
+            </div>
+            <span class="badge bg-${statusClass} rounded-pill">${statusText}</span>
+          `;
+          container.appendChild(item);
+        });
+      })
+      .catch(error => console.error('Error:', error));
+    }
+
+    // Load announcements and events when page loads
+    document.addEventListener('DOMContentLoaded', function() {
+      loadAnnouncements();
+      loadEvents();
     });
 
     // Calendar functionality
@@ -430,6 +529,49 @@ if (!isset($_SESSION['username'])) {
       background-color: #dc3545;
       color: white;
       font-weight: bold;
+    }
+
+    /* Hero Banner Styles */
+    .hero-banner {
+      position: relative;
+      background: url('red-cross.jpg') center center/cover no-repeat;
+      padding: 60px 10px 50px 10px;
+      border-radius: 18px;
+      box-shadow: 0 6px 24px rgba(220,53,69,0.10);
+      margin-top: 24px;
+      animation: heroFadeIn 1.2s ease;
+      color: #fff;
+      overflow: hidden;
+    }
+    .hero-banner::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(220,53,69,0.55); /* Red overlay, adjust opacity as needed */
+      z-index: 1;
+      border-radius: 18px;
+    }
+    .hero-banner .hero-title,
+    .hero-banner .hero-subtitle {
+      position: relative;
+      z-index: 2;
+    }
+    .hero-title {
+      font-size: 2.2rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      margin-bottom: 0.5rem;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.18);
+    }
+    .hero-subtitle {
+      font-size: 1.1rem;
+      font-style: italic;
+      opacity: 0.95;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.18);
+    }
+    @keyframes heroFadeIn {
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </body>
